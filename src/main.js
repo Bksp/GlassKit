@@ -52,7 +52,45 @@ class Sidebar extends HTMLElement {
 
 class Navbar extends HTMLElement {
   connectedCallback() {
-    this.classList.add('glass-nav', 'p-3', 'px-4', 'd-flex', 'justify-content-between', 'align-items-center', 'd-block');
+    const title = this.getAttribute('title') || 'Dashboard';
+    const actionsHtml = this.innerHTML;
+    
+    // Configuración base del navbar
+    this.classList.add('glass-nav', 'mb-4', 'p-3', 'px-4', 'd-flex', 'justify-content-between', 'align-items-center');
+    this.classList.remove('d-block');
+
+    this.innerHTML = `
+      <div class="nav-brand d-flex align-items-center">
+          <h2 class="h5 mb-0 text-white fw-bold text-truncate gk-navbar-title" style="letter-spacing: 1px;">${title}</h2>
+      </div>
+      
+      <div class="nav-actions-container d-flex align-items-center">
+          <div class="d-none d-sm-flex align-items-center me-3">
+              ${actionsHtml}
+          </div>
+          
+          <button class="nav-toggle-btn toggle-sidebar-btn d-lg-none" aria-label="Toggle Sidebar">
+              <div class="hamburger-lines">
+                  <span class="line line1"></span>
+                  <span class="line line2"></span>
+                  <span class="line line3"></span>
+              </div>
+          </button>
+      </div>
+    `;
+  }
+
+  static get observedAttributes() {
+    return ['title'];
+  }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (name === 'title') {
+      const titleEl = this.querySelector('.gk-navbar-title');
+      if (titleEl) {
+        titleEl.textContent = newValue;
+      }
+    }
   }
 }
 
@@ -316,14 +354,17 @@ export function initGlassKitUI() {
   }
 
   // Caching DOM elements para mejor rendimiento
-  const contentSections = document.querySelectorAll('.content-section');
+  const contentSections = document.querySelectorAll('.content-section, #theme-section');
   const navLinks = document.querySelectorAll('.sidebar .nav-link');
 
-  // Helper para actualizar el título del navbar
+  // Helper para actualizar el título del navbar (solo en móviles)
   const updateNavbarTitle = (titleText) => {
-    const navbarTitle = document.getElementById('navbar-title');
-    if (navbarTitle) {
-      navbarTitle.textContent = titleText;
+    // Solo cambiar el título dinámicamente en responsive mode (móviles/tabletas)
+    if (window.innerWidth < 992) {
+      const navbar = document.getElementById('main-navbar') || document.querySelector('gk-navbar');
+      if (navbar) {
+        navbar.setAttribute('title', titleText);
+      }
     }
   };
 
@@ -432,30 +473,53 @@ export function initGlassKitUI() {
   });
   
   // Lógica de ScrollSpy (Highlight dinámico en Navbar)
+  const glassNav = document.querySelector('.glass-nav');
   window.addEventListener('scroll', () => {
+    // Añadir clase scrolled al navbar
+    if (glassNav) {
+      if (window.scrollY > 10) {
+        glassNav.classList.add('scrolled');
+      } else {
+        glassNav.classList.remove('scrolled');
+      }
+    }
+
     if(document.getElementById('page-uikit') && document.getElementById('page-uikit').classList.contains('d-none')) return;
     
     let current = '';
     contentSections.forEach(section => {
+      // Ignorar secciones que pertenezcan a páginas ocultas (display: none)
+      if (section.offsetParent === null) return;
+
       const sectionTop = section.offsetTop;
       if (window.scrollY >= (sectionTop - 250)) {
         current = section.getAttribute('id');
       }
     });
 
+    // Restaurar el título original si estamos en la parte superior
+    if (window.scrollY < 100) {
+      updateNavbarTitle('Guía de Uso');
+    }
+
     navLinks.forEach(link => {
       link.classList.remove('active');
       if (link.getAttribute('href') === '#' + current) {
         link.classList.add('active');
 
-        // Actualizar título del navbar basado en la sección visible
-        const titleSpan = link.querySelector('span');
-        if (titleSpan) {
-          updateNavbarTitle(titleSpan.textContent.trim());
+        // Actualizar título del navbar basado en la sección visible solo si hemos bajado
+        if (window.scrollY >= 100) {
+          const titleSpan = link.querySelector('span');
+          if (titleSpan) {
+            updateNavbarTitle(titleSpan.textContent.trim());
+          }
         }
       }
     });
   });
+
+  // Disparar evento de scroll inicial para setear estado
+  window.dispatchEvent(new Event('scroll'));
 
   console.log('🚀 GlassKit inicializado (Light DOM). Temas habilitados.');
 }

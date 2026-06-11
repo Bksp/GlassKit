@@ -153,6 +153,33 @@ body.sidebar-collapsed:not(.sidebar-mobile-open) #sidebarToggleBtn:hover .line2 
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 16px;
     margin-bottom: 25px;
+    position: relative; /* Normal document flow in desktop */
+    z-index: 1030;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+body.sidebar-collapsed .glass-nav {
+    /* Ya no necesita calc() porque fluye normal */
+}
+
+.glass-nav.scrolled {
+    /* Efecto hover/scrolled opcional en desktop si lo hubiese, aunque no es fixed */
+    border-color: rgba(var(--bs-primary-rgb, 13, 110, 253), 0.3);
+}
+
+/* Nav toggle button style (Crafters) */
+.nav-toggle-btn {
+    background: transparent !important;
+    border: none !important;
+    cursor: pointer;
+    z-index: 1040;
+    width: 30px;
+    height: 24px;
+    position: relative;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Forms styling */
@@ -456,55 +483,171 @@ i.bi {
 }
 
 
-/* Mobile & Tablet Offcanvas sidebar customization */
+/* Mobile & Tablet Full Screen Menu (Crafters Logic) */
 @media (max-width: 991.98px) {
     .sidebar {
-        width: 280px !important;
-        background: rgba(15, 17, 21, 0.96) !important;
-        border-right: 1px solid rgba(255, 255, 255, 0.15) !important;
-        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
+        width: 100% !important;
+        background: rgba(15, 17, 21, 0.98) !important;
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
+        border: none !important;
         position: fixed;
         height: 100vh;
         top: 0;
         left: 0;
         z-index: 1045 !important;
-        transform: translateX(-100%);
-        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transform: translateY(-20px);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: transform 0.4s ease, opacity 0.4s ease, visibility 0.4s ease;
     }
     
     body.sidebar-mobile-open .sidebar {
-        transform: translateX(0);
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    /* Centrar contenido de navegación */
+    .sidebar .pt-3.flex-grow-1 {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        padding-top: 0 !important;
+        margin: auto 0;
+    }
+
+    .sidebar .px-3 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    /* Estilo de enlaces gigantes a la Crafters */
+    .sidebar .nav-link {
+        font-size: 1.8rem;
+        padding: 10px 20px;
+        justify-content: center;
+        width: auto;
+        border-left: none;
+        border-bottom: 2px solid transparent;
+        background: transparent !important;
+    }
+
+    .sidebar .nav-link:hover, .sidebar .nav-link.active {
+        color: var(--bs-primary);
+        border-bottom-color: var(--bs-primary);
+    }
+
+    .sidebar .nav-link i {
+        display: none; /* Opcional: Ocultar íconos para más minimalismo tipo Crafters */
+    }
+    
+    /* Ocultar Header del sidebar en móviles, el top navbar persistirá */
+    #sidebarHeader {
+        display: none !important;
+    }
+
+    /* Footer del sidebar posicionado abajo */
+    .sidebar footer {
+        position: absolute;
+        bottom: 20px;
+        width: 100%;
+        border-top: none !important;
     }
     
     .main-content {
         margin-left: 0 !important;
         width: 100% !important;
-        padding: 20px 15px;
+        padding: 80px 15px 20px 15px; /* Add top padding to account for fixed header */
     }
-    
-    /* Overlay for mobile */
-    .sidebar-overlay {
+
+    /* Fixed top navbar a la Crafters-main solo en móviles */
+    .glass-nav {
         position: fixed;
         top: 0;
         left: 0;
-        width: 100vw;
-        height: 100vh;
-        background: rgba(0,0,0,0.5);
-        backdrop-filter: blur(3px);
-        z-index: 1040;
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.3s;
+        width: 100%;
+        border-radius: 0;
+        margin: 0;
+        padding-top: 15px !important;
+        padding-bottom: 15px !important;
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+        border: none;
+        border-bottom: 1px solid transparent;
+        background: transparent;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        box-shadow: none;
+        z-index: 1050;
     }
-    body.sidebar-mobile-open .sidebar-overlay {
-        opacity: 1;
-        visibility: visible;
+
+    .glass-nav.scrolled {
+        background: rgba(15, 17, 21, 0.95);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    }
+    
+    /* Overlay no es necesario en menú pantalla completa */
+    .sidebar-overlay {
+        display: none !important;
     }
 
     /* Prevenir scroll en móviles con sidebar abierto */
     body.sidebar-mobile-open {
         overflow: hidden !important;
     }
+}
+
+/* Animate toggle button hamburger lines when mobile menu is open (Crafters Logic) */
+body.sidebar-mobile-open .nav-toggle-btn .line1 {
+    transform: translateY(6px) rotate(45deg);
+}
+body.sidebar-mobile-open .nav-toggle-btn .line2 {
+    opacity: 0;
+    transform: scaleX(0);
+}
+body.sidebar-mobile-open .nav-toggle-btn .line3 {
+    transform: translateY(-6px) rotate(-45deg);
+}
+
+/* Ocultar el título/brand del navbar en móvil cuando el menú está abierto */
+.nav-brand {
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+body.sidebar-mobile-open .nav-brand {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* Remover fondo, bordes y sombras de la barra cuando el menú móvil está abierto */
+body.sidebar-mobile-open .glass-nav {
+    background: transparent !important;
+    border-bottom: 1px solid transparent !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+/* Make sure desktop uses default hamburger lines unless open */
+.nav-toggle-btn .line1,
+.nav-toggle-btn .line2,
+.nav-toggle-btn .line3 {
+    transform: none;
+    opacity: 1;
 }
 
 /* CSS Animations */
