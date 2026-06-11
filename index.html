@@ -15,8 +15,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
     <!-- Custom Style Sheet (fusión directa de tus hojas de estilo) -->
-  <script type="module" crossorigin src="./assets/index-ovswpGlv.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-CCGNr5j4.css">
+  <script type="module" crossorigin src="./assets/index-BHE_r0UW.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-CD_LRY0h.css">
 </head>
 
 <body>
@@ -571,7 +571,10 @@ sequenceDiagram
                             <div class="zorin-center-login">
                                 <!-- Avatar -->
                                 <div class="zorin-avatar shadow-lg">
+                                    <!-- Generic theme-aware icon -->
                                     <i id="zorinAvatarIcon" class="bi bi-person text-white text-opacity-40"></i>
+                                    <!-- Custom profile image -->
+                                    <img id="zorinAvatarImg" src="./assets/user-avatar-CTH0V3AH.png" alt="User Avatar" class="no-zoom d-none">
                                 </div>
 
                                 <!-- Username Selection / Input Step -->
@@ -637,28 +640,37 @@ sequenceDiagram
             }
         });
 
-        // Dynamic Avatar Loader based on Username (Icon version)
+        // Dynamic Avatar Loader: Icon (generic) <-> Image (admin)
         document.addEventListener('DOMContentLoaded', () => {
             const usernameInput = document.getElementById('zorinUsername');
             const avatarIcon = document.getElementById('zorinAvatarIcon');
-            const defaultClass = 'bi-person text-white text-opacity-40';
-            const customClass = 'bi-person-fill text-primary';
+            const avatarImg = document.getElementById('zorinAvatarImg');
+            let currentAvatarState = ''; // 'generic' or 'admin'
             
             function updateAvatarSource() {
-                if (usernameInput && avatarIcon) {
+                if (usernameInput && avatarIcon && avatarImg) {
                     const isCustom = usernameInput.value.trim().toLowerCase() === 'admin';
-                    const targetClass = isCustom ? customClass : defaultClass;
+                    const targetState = isCustom ? 'admin' : 'generic';
                     
-                    // Only trigger if classes are actually changing
-                    if (avatarIcon.getAttribute('data-current-class') !== targetClass) {
-                        // Reset all class names to base bi then add target
-                        avatarIcon.className = `bi ${targetClass}`;
-                        avatarIcon.setAttribute('data-current-class', targetClass);
-                        
-                        // Trigger CSS animation
-                        avatarIcon.classList.remove('avatar-entrance-effect');
-                        void avatarIcon.offsetWidth; // Force reflow
-                        avatarIcon.classList.add('avatar-entrance-effect');
+                    if (currentAvatarState !== targetState) {
+                        currentAvatarState = targetState;
+                        if (isCustom) {
+                            avatarIcon.classList.add('d-none');
+                            avatarImg.classList.remove('d-none');
+                            
+                            // Trigger entrance effect on the image
+                            avatarImg.classList.remove('avatar-entrance-effect');
+                            void avatarImg.offsetWidth; // Force reflow
+                            avatarImg.classList.add('avatar-entrance-effect');
+                        } else {
+                            avatarImg.classList.add('d-none');
+                            avatarIcon.classList.remove('d-none');
+                            
+                            // Trigger entrance effect on the icon
+                            avatarIcon.classList.remove('avatar-entrance-effect');
+                            void avatarIcon.offsetWidth; // Force reflow
+                            avatarIcon.classList.add('avatar-entrance-effect');
+                        }
                     }
                 }
             }
