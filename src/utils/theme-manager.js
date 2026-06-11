@@ -1,11 +1,11 @@
 export class ThemeManager {
     static init() {
-        if (!document.documentElement.style.getPropertyValue('--bg-color')) {
-            this.setTheme('default');
-        }
+        const savedTheme = localStorage.getItem('glasskit-theme') || 'default';
+        this.setTheme(savedTheme);
     }
 
     static setTheme(themeName) {
+        localStorage.setItem('glasskit-theme', themeName);
         const root = document.documentElement.style;
         // Quitar clase activa de todos los botones de tema
         document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('border-primary'));

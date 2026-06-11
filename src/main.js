@@ -471,6 +471,18 @@ export function initGlassKitUI() {
       document.body.classList.remove('sidebar-mobile-open');
     }
   });
+
+  // Hacer que al hacer clic en el logo/título del sidebar se suba al tope de la página
+  const sidebarLogo = document.querySelector('.sidebar-logo-container');
+  if (sidebarLogo) {
+    sidebarLogo.style.cursor = 'pointer';
+    sidebarLogo.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  }
   
   // Lógica de ScrollSpy (Highlight dinámico en Navbar)
   const glassNav = document.querySelector('.glass-nav');
