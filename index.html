@@ -15,8 +15,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
     <!-- Custom Style Sheet (fusión directa de tus hojas de estilo) -->
-  <script type="module" crossorigin src="./assets/index-DGGTiicW.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-BoLwT3ON.css">
+  <script type="module" crossorigin src="./assets/index-CBX6lvPk.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-C2TSBcNl.css">
 </head>
 
 <body>
@@ -244,20 +244,38 @@ body {
                                         class="bi bi-exclamation-triangle me-2 text-warning"></i>Alertas Dinámicas
                                     (Bootstrap Override)</h3>
                                 <div class="glass-card p-4">
-                                    <div class="alert alert-primary bg-primary bg-opacity-10 border-primary text-primary"
+                                    <div class="alert alert-primary"
                                         role="alert">
                                         Una alerta simple con color <strong class="fw-bold">Primario</strong>. El color
                                         cambiará según el tema seleccionado.
                                     </div>
-                                    <div class="alert alert-success bg-success bg-opacity-10 border-success text-success"
+                                    <div class="alert alert-success"
                                         role="alert">
                                         Una alerta simple con color <strong class="fw-bold">Success</strong>. Excelente
                                         para notificaciones positivas.
                                     </div>
-                                    <div class="alert alert-danger bg-danger bg-opacity-10 border-danger text-danger mb-0"
+                                    <div class="alert alert-danger mb-0"
                                         role="alert">
                                         Una alerta simple con color <strong class="fw-bold">Danger</strong>. Ideal para
                                         mensajes de error.
+                                    </div>
+
+                                    <div class="mt-4 pt-3 border-top border-light border-opacity-10">
+                                        <h4 class="h6 text-white text-opacity-75 mb-3">Prueba de Alertas Flotantes (Toasts)</h4>
+                                        <div class="d-flex flex-wrap gap-3">
+                                            <button class="btn btn-glass-primary" onclick="showGlassAlert('Esta es una alerta flotante de información.', 'primary')">
+                                                Lanzar Primaria
+                                            </button>
+                                            <button class="btn btn-glass-success" onclick="showGlassAlert('¡Operación realizada con éxito!', 'success')">
+                                                Lanzar Éxito
+                                            </button>
+                                            <button class="btn btn-glass-danger" onclick="showGlassAlert('Ha ocurrido un error en el sistema.', 'danger')">
+                                                Lanzar Peligro
+                                            </button>
+                                            <button class="btn btn-glass-warning" onclick="showGlassAlert('Atención: verifique los datos ingresados.', 'warning')">
+                                                Lanzar Advertencia
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
