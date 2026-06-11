@@ -15,8 +15,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
     <!-- Custom Style Sheet (fusión directa de tus hojas de estilo) -->
-  <script type="module" crossorigin src="./assets/index-BHE_r0UW.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-CD_LRY0h.css">
+  <script type="module" crossorigin src="./assets/index-DGGTiicW.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-BoLwT3ON.css">
 </head>
 
 <body>
@@ -671,6 +671,25 @@ sequenceDiagram
             if (usernameInput) {
                 usernameInput.addEventListener('input', updateAvatarSource);
                 updateAvatarSource();
+                
+                // Submit Username on Enter
+                usernameInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        goToPasswordStep();
+                    }
+                });
+            }
+            
+            const passwordInput = document.getElementById('zorinPassword');
+            if (passwordInput) {
+                // Submit Password on Enter
+                passwordInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        submitZorinLogin();
+                    }
+                });
             }
         });
 
@@ -698,7 +717,7 @@ sequenceDiagram
             const usernameInput = document.getElementById('zorinUsername');
             const username = usernameInput.value.trim();
             if (!username) {
-                alert('Please enter a username.');
+                showGlassAlert('Please enter a username.', 'warning');
                 return;
             }
             
@@ -754,7 +773,7 @@ sequenceDiagram
                 centerForm.style.transform = 'scale(0.95)';
                 centerForm.style.opacity = '0.5';
                 
-                alert('Welcome to GlassKit OS! Access granted.');
+                showGlassAlert('Welcome to GlassKit OS! Access granted.', 'success');
                 
                 setTimeout(() => {
                     centerForm.style.transform = 'scale(1)';
@@ -766,7 +785,7 @@ sequenceDiagram
                 }, 1500);
             } else {
                 centerForm.classList.add('shake-animation');
-                alert('Authentication failed. Please verify credentials.');
+                showGlassAlert('Authentication failed. Please verify credentials.', 'danger');
                 setTimeout(() => {
                     centerForm.classList.remove('shake-animation');
                 }, 500);
