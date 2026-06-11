@@ -375,6 +375,13 @@ export function initGlassKitUI() {
     if (titleSpan) {
       updateNavbarTitle(titleSpan.textContent.trim());
     }
+    
+    // Ocultar navbar superior si la página activa por defecto es el login
+    const targetPageId = activeLink.getAttribute('data-page');
+    const mainNavbar = document.getElementById('main-navbar');
+    if (mainNavbar && targetPageId === 'page-login') {
+      mainNavbar.classList.add('d-none');
+    }
   }
 
   // Inicialización de Mermaid base
@@ -442,6 +449,16 @@ export function initGlassKitUI() {
           const targetPage = document.getElementById(targetPageId);
           if (targetPage) {
               targetPage.classList.remove('d-none');
+          }
+          
+          // Ocultar / Mostrar el navbar superior de GlassKit Workspace
+          const mainNavbar = document.getElementById('main-navbar');
+          if (mainNavbar) {
+              if (targetPageId === 'page-login') {
+                  mainNavbar.classList.add('d-none');
+              } else {
+                  mainNavbar.classList.remove('d-none');
+              }
           }
       }
 
@@ -541,4 +558,44 @@ if (typeof window !== 'undefined') {
   initGlassKitUI();
   // Exponer el ThemeManager a nivel global para que puedas llamarlo desde la consola o botones
   window.ThemeManager = ThemeManager;
+  
+  // Exponer el Toast Alert de GlassKit globalmente
+  window.showGlassAlert = function(message, type = 'primary') {
+    let container = document.getElementById('gk-toast-container');
+    if (!container) {
+      container = document.createElement('div');
+      container.id = 'gk-toast-container';
+      container.className = 'position-fixed top-0 end-0 p-3';
+      container.style.zIndex = '9999';
+      document.body.appendChild(container);
+    }
+    
+    const toast = document.createElement('div');
+    toast.className = `glass-toast toast-type-${type} p-3 mb-2 rounded-3 shadow-lg d-flex align-items-center justify-content-between`;
+    
+    let iconClass = 'bi-info-circle-fill';
+    let textClass = 'text-info';
+    if (type === 'success') { iconClass = 'bi-check-circle-fill'; textClass = 'text-success'; }
+    if (type === 'danger') { iconClass = 'bi-exclamation-triangle-fill'; textClass = 'text-danger'; }
+    if (type === 'warning') { iconClass = 'bi-exclamation-circle-fill'; textClass = 'text-warning'; }
+    if (type === 'primary') { iconClass = 'bi-info-circle-fill'; textClass = 'text-primary'; }
+
+    toast.innerHTML = `
+      <div class="d-flex align-items-center gap-3">
+          <i class="bi ${iconClass} fs-5 ${textClass}"></i>
+          <span style="font-size: 0.95rem; font-weight: 500;">${message}</span>
+      </div>
+      <button type="button" class="btn-close btn-close-white ms-3 small" aria-label="Close" style="font-size: 0.75rem;" onclick="this.parentElement.remove()"></button>
+    `;
+    
+    container.appendChild(toast);
+    
+    // Auto-remove after 4 seconds
+    setTimeout(() => {
+      if (toast.parentNode) {
+        toast.style.animation = 'toastFadeOut 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
+        setTimeout(() => toast.remove(), 400);
+      }
+    }, 4000);
+  };
 }

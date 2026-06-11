@@ -56,15 +56,20 @@
                             class="bi bi-layers me-3"></i> <span>Componentes UI</span> </a>
                     <a href="#programming-section" class="nav-link" data-page="page-fundamentos"> <i
                             class="bi bi-journal-code me-3"></i> <span>Guía de Uso</span> </a>
+                    <div class="my-3 border-top border-light border-opacity-25"></div>
+                    <a href="#login-section" class="nav-link" data-page="page-login"> <i
+                            class="bi bi-shield-lock me-3"></i> <span>Demo Login</span> </a>
                 </div>
+            </div>
 
-                <footer class="mt-auto mb-4 border-top border-light border-opacity-25 pt-3 text-center px-3">
+            <div class="mt-auto my-3 border-top border-light border-opacity-25"></div>
+            <footer class="mb-4 text-center px-3 pt-2">
                     <small class="text-white text-opacity-50 d-block">
                         <span class="sidebar-text-full">Modo Desarrollo</span>
                         <span class="sidebar-text-short d-none">Dev.</span>
                     </small>
                 </footer>
-        </nav>
+            </nav>
 
         <!-- Main Workspace Area -->
         <!-- Main Content Area -->
@@ -122,19 +127,19 @@
                                         componentes, grillas y diagramas heredan automáticamente la nueva paleta de
                                         colores CSS.</p>
                                     <div class="d-flex justify-content-center gap-3">
-                                        <button class="btn btn-glass-secondary theme-btn border-primary px-4 py-2"
+                                        <button class="btn btn-glass-secondary theme-btn btn-responsive-icon border-primary px-4 py-2"
                                             data-theme="default" onclick="ThemeManager.setTheme('default')">
                                             <i class="bi bi-moon-stars me-2"></i>Dark Base
                                         </button>
-                                        <button class="btn btn-glass-secondary theme-btn px-4 py-2"
+                                        <button class="btn btn-glass-secondary theme-btn btn-responsive-icon px-4 py-2"
                                             data-theme="cyberpunk" onclick="ThemeManager.setTheme('cyberpunk')">
                                             <i class="bi bi-lightning-charge text-info me-2"></i>Cyberpunk Neon
                                         </button>
-                                        <button class="btn btn-glass-secondary theme-btn px-4 py-2" data-theme="nature"
+                                        <button class="btn btn-glass-secondary theme-btn btn-responsive-icon px-4 py-2" data-theme="nature"
                                             onclick="ThemeManager.setTheme('nature')">
                                             <i class="bi bi-tree text-success me-2"></i>Nature Bio
                                         </button>
-                                        <button class="btn btn-glass-secondary theme-btn px-4 py-2" data-theme="ubuntu"
+                                        <button class="btn btn-glass-secondary theme-btn btn-responsive-icon px-4 py-2" data-theme="ubuntu"
                                             onclick="ThemeManager.setTheme('ubuntu')">
                                             <i class="bi bi-ubuntu text-warning me-2"></i>Ubuntu
                                         </button>
@@ -238,20 +243,38 @@ body {
                                         class="bi bi-exclamation-triangle me-2 text-warning"></i>Alertas Dinámicas
                                     (Bootstrap Override)</h3>
                                 <div class="glass-card p-4">
-                                    <div class="alert alert-primary bg-primary bg-opacity-10 border-primary text-primary"
+                                    <div class="alert alert-primary"
                                         role="alert">
                                         Una alerta simple con color <strong class="fw-bold">Primario</strong>. El color
                                         cambiará según el tema seleccionado.
                                     </div>
-                                    <div class="alert alert-success bg-success bg-opacity-10 border-success text-success"
+                                    <div class="alert alert-success"
                                         role="alert">
                                         Una alerta simple con color <strong class="fw-bold">Success</strong>. Excelente
                                         para notificaciones positivas.
                                     </div>
-                                    <div class="alert alert-danger bg-danger bg-opacity-10 border-danger text-danger mb-0"
+                                    <div class="alert alert-danger mb-0"
                                         role="alert">
                                         Una alerta simple con color <strong class="fw-bold">Danger</strong>. Ideal para
                                         mensajes de error.
+                                    </div>
+
+                                    <div class="mt-4 pt-3 border-top border-light border-opacity-10">
+                                        <h4 class="h6 text-white text-opacity-75 mb-3">Prueba de Alertas Flotantes (Toasts)</h4>
+                                        <div class="d-flex flex-wrap gap-3">
+                                            <button class="btn btn-glass-primary" onclick="showGlassAlert('Esta es una alerta flotante de información.', 'primary')">
+                                                Lanzar Primaria
+                                            </button>
+                                            <button class="btn btn-glass-success" onclick="showGlassAlert('¡Operación realizada con éxito!', 'success')">
+                                                Lanzar Éxito
+                                            </button>
+                                            <button class="btn btn-glass-danger" onclick="showGlassAlert('Ha ocurrido un error en el sistema.', 'danger')">
+                                                Lanzar Peligro
+                                            </button>
+                                            <button class="btn btn-glass-warning" onclick="showGlassAlert('Atención: verifique los datos ingresados.', 'warning')">
+                                                Lanzar Advertencia
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -536,6 +559,73 @@ sequenceDiagram
                         </div>
                     </section>
                 </div>
+
+                <div id="page-login" class="page-view d-none">
+                    <section id="login-section" class="content-section position-relative overflow-hidden" style="min-height: calc(100vh - 100px); padding: 0;">
+                        <!-- Floating Credentials Widget (Zorin OS Desktop widget style) -->
+                        <div class="position-absolute top-0 start-0 m-4 p-3 glass-card" style="max-width: 280px; z-index: 10;">
+                            <h6 class="fw-bold mb-2 text-white"><i class="bi bi-info-circle text-primary me-2"></i>Demo Credentials</h6>
+                            <p class="small text-white text-opacity-70 mb-2">Use these credentials to test the login experience:</p>
+                            <div class="mb-1"><span class="small text-white text-opacity-50">Username:</span> <code class="text-primary">admin</code></div>
+                            <div><span class="small text-white text-opacity-50">Password:</span> <code class="text-primary">admin123</code></div>
+                        </div>
+
+                        <!-- Zorin OS Login Shell -->
+                        <div class="zorin-login-container">
+                            <!-- Top Bar (Centered Clock) -->
+                            <div class="zorin-top-bar d-flex justify-content-center w-100 pt-3">
+                                <div id="zorinClock" class="fw-medium text-white text-opacity-80">24 Dec 07:07</div>
+                            </div>
+
+                            <!-- Center Login Form -->
+                            <div class="zorin-center-login">
+                                <!-- Avatar -->
+                                <div class="zorin-avatar shadow-lg">
+                                    <!-- Generic theme-aware icon -->
+                                    <i id="zorinAvatarIcon" class="bi bi-person text-white text-opacity-40"></i>
+                                    <!-- Custom profile image -->
+                                    <img id="zorinAvatarImg" src="./src/user-avatar.png" alt="User Avatar" class="no-zoom d-none">
+                                </div>
+
+                                <!-- Username Selection / Input Step -->
+                                <div id="loginStepUsername" class="w-100 text-center">
+                                    <h5 class="fw-semibold text-white mb-3" style="font-size: 1.25rem;">Enter Username</h5>
+                                    <div class="px-4">
+                                        <input type="text" id="zorinUsername" class="zorin-input text-center mb-3" placeholder="Username" autocomplete="username">
+                                        <button class="btn btn-glass-primary px-4 py-2 rounded-pill w-100" onclick="goToPasswordStep()">Next</button>
+                                    </div>
+                                </div>
+
+                                <!-- Password Entry Step (Zorin Style) -->
+                                <div id="loginStepPassword" class="w-100 text-center d-none">
+                                    <div class="zorin-username text-white" id="displayUsername">LinuxTechi</div>
+                                    <form onsubmit="event.preventDefault(); submitZorinLogin();" class="zorin-input-wrapper mt-3">
+                                        <!-- Back arrow button -->
+                                        <button type="button" class="zorin-back-btn" onclick="goToUsernameStep()" aria-label="Go Back">
+                                            <i class="bi bi-arrow-left-short fs-4"></i>
+                                        </button>
+                                        
+                                        <!-- Password input with reveal icon inside -->
+                                        <div class="zorin-input-container">
+                                            <input type="password" id="zorinPassword" class="zorin-input" placeholder="Password" autocomplete="current-password" required>
+                                            <span class="zorin-toggle-password" onclick="toggleZorinPasswordVisibility()">
+                                                <i id="passwordEyeIcon" class="bi bi-eye"></i>
+                                            </span>
+                                        </div>
+                                        
+                                        <button type="submit" class="d-none">Submit</button>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <!-- Bottom Bar (ZORIN logo and settings) -->
+                            <div class="zorin-bottom-bar w-100 d-flex justify-content-center align-items-center position-relative pb-4">
+                                <div class="zorin-logo">GLASSKIT</div>
+                                <i class="bi bi-gear zorin-settings-btn" onclick="alert('Accessibility & System Settings')"></i>
+                            </div>
+                        </div>
+                    </section>
+                </div>
             </div>
 
         </main>
@@ -560,6 +650,165 @@ sequenceDiagram
                 orb.style.top = e.clientY + 'px';
             }
         });
+
+        // Dynamic Avatar Loader: Icon (generic) <-> Image (admin)
+        document.addEventListener('DOMContentLoaded', () => {
+            const usernameInput = document.getElementById('zorinUsername');
+            const avatarIcon = document.getElementById('zorinAvatarIcon');
+            const avatarImg = document.getElementById('zorinAvatarImg');
+            let currentAvatarState = ''; // 'generic' or 'admin'
+            
+            function updateAvatarSource() {
+                if (usernameInput && avatarIcon && avatarImg) {
+                    const isCustom = usernameInput.value.trim().toLowerCase() === 'admin';
+                    const targetState = isCustom ? 'admin' : 'generic';
+                    
+                    if (currentAvatarState !== targetState) {
+                        currentAvatarState = targetState;
+                        if (isCustom) {
+                            avatarIcon.classList.add('d-none');
+                            avatarImg.classList.remove('d-none');
+                            
+                            // Trigger entrance effect on the image
+                            avatarImg.classList.remove('avatar-entrance-effect');
+                            void avatarImg.offsetWidth; // Force reflow
+                            avatarImg.classList.add('avatar-entrance-effect');
+                        } else {
+                            avatarImg.classList.add('d-none');
+                            avatarIcon.classList.remove('d-none');
+                            
+                            // Trigger entrance effect on the icon
+                            avatarIcon.classList.remove('avatar-entrance-effect');
+                            void avatarIcon.offsetWidth; // Force reflow
+                            avatarIcon.classList.add('avatar-entrance-effect');
+                        }
+                    }
+                }
+            }
+            
+            if (usernameInput) {
+                usernameInput.addEventListener('input', updateAvatarSource);
+                updateAvatarSource();
+                
+                // Submit Username on Enter
+                usernameInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        goToPasswordStep();
+                    }
+                });
+            }
+            
+            const passwordInput = document.getElementById('zorinPassword');
+            if (passwordInput) {
+                // Submit Password on Enter
+                passwordInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        submitZorinLogin();
+                    }
+                });
+            }
+        });
+
+        // Zorin OS Real-Time Clock
+        function updateZorinClock() {
+            const clockEl = document.getElementById('zorinClock');
+            if (!clockEl) return;
+            const now = new Date();
+            const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            
+            const dayName = days[now.getDay()];
+            const dayNum = now.getDate();
+            const monthName = months[now.getMonth()];
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            
+            clockEl.textContent = `${dayName} ${dayNum} ${monthName} ${hours}:${minutes}`;
+        }
+        setInterval(updateZorinClock, 1000);
+        updateZorinClock();
+
+        // Zorin OS Login Form Step Management
+        window.goToPasswordStep = function() {
+            const usernameInput = document.getElementById('zorinUsername');
+            const username = usernameInput.value.trim();
+            if (!username) {
+                showGlassAlert('Please enter a username.', 'warning');
+                return;
+            }
+            
+            document.getElementById('displayUsername').textContent = username;
+            
+            const stepUser = document.getElementById('loginStepUsername');
+            const stepPass = document.getElementById('loginStepPassword');
+            
+            stepUser.classList.add('d-none');
+            stepPass.classList.remove('d-none');
+            
+            // Auto-focus password field
+            setTimeout(() => {
+                document.getElementById('zorinPassword').focus();
+            }, 100);
+        }
+
+        window.goToUsernameStep = function() {
+            const stepUser = document.getElementById('loginStepUsername');
+            const stepPass = document.getElementById('loginStepPassword');
+            
+            stepPass.classList.add('d-none');
+            stepUser.classList.remove('d-none');
+            
+            // Auto-focus username field
+            setTimeout(() => {
+                document.getElementById('zorinUsername').focus();
+            }, 100);
+        }
+
+        window.toggleZorinPasswordVisibility = function() {
+            const passwordInput = document.getElementById('zorinPassword');
+            const eyeIcon = document.getElementById('passwordEyeIcon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.classList.remove('bi-eye');
+                eyeIcon.classList.add('bi-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.classList.remove('bi-eye-slash');
+                eyeIcon.classList.add('bi-eye');
+            }
+        }
+
+        window.submitZorinLogin = function() {
+            const user = document.getElementById('zorinUsername').value.trim();
+            const pass = document.getElementById('zorinPassword').value.trim();
+            const centerForm = document.querySelector('.zorin-center-login');
+            
+            if (user === 'admin' && pass === 'admin123') {
+                centerForm.style.transition = 'transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s ease';
+                centerForm.style.transform = 'scale(0.95)';
+                centerForm.style.opacity = '0.5';
+                
+                showGlassAlert('Welcome to GlassKit OS! Access granted.', 'success');
+                
+                setTimeout(() => {
+                    centerForm.style.transform = 'scale(1)';
+                    centerForm.style.opacity = '1';
+                    document.getElementById('zorinUsername').value = '';
+                    document.getElementById('zorinUsername').dispatchEvent(new Event('input'));
+                    document.getElementById('zorinPassword').value = '';
+                    goToUsernameStep();
+                }, 1500);
+            } else {
+                centerForm.classList.add('shake-animation');
+                showGlassAlert('Authentication failed. Please verify credentials.', 'danger');
+                setTimeout(() => {
+                    centerForm.classList.remove('shake-animation');
+                }, 500);
+            }
+        }
     </script>
 </body>
 
