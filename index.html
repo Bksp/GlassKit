@@ -15,8 +15,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
     <!-- Custom Style Sheet (fusión directa de tus hojas de estilo) -->
-  <script type="module" crossorigin src="./assets/index-Bf4r0wMM.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-C420h_ZV.css">
+  <script type="module" crossorigin src="./assets/index-ovswpGlv.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-CCGNr5j4.css">
 </head>
 
 <body>
@@ -61,9 +61,10 @@
                     <a href="#login-section" class="nav-link" data-page="page-login"> <i
                             class="bi bi-shield-lock me-3"></i> <span>Demo Login</span> </a>
                 </div>
+            </div>
 
-                <div class="mt-auto my-3 border-top border-light border-opacity-25"></div>
-                <footer class="mb-4 text-center px-3 pt-2">
+            <div class="mt-auto my-3 border-top border-light border-opacity-25"></div>
+            <footer class="mb-4 text-center px-3 pt-2">
                     <small class="text-white text-opacity-50 d-block">
                         <span class="sidebar-text-full">Modo Desarrollo</span>
                         <span class="sidebar-text-short d-none">Dev.</span>
@@ -570,7 +571,7 @@ sequenceDiagram
                             <div class="zorin-center-login">
                                 <!-- Avatar -->
                                 <div class="zorin-avatar shadow-lg">
-                                    <img src="" alt="User Avatar" class="no-zoom">
+                                    <i id="zorinAvatarIcon" class="bi bi-person text-white text-opacity-40"></i>
                                 </div>
 
                                 <!-- Username Selection / Input Step -->
@@ -636,19 +637,28 @@ sequenceDiagram
             }
         });
 
-        // Dynamic Avatar Loader based on Username
+        // Dynamic Avatar Loader based on Username (Icon version)
         document.addEventListener('DOMContentLoaded', () => {
             const usernameInput = document.getElementById('zorinUsername');
-            const avatarImg = document.querySelector('.zorin-avatar img');
-            const defaultAvatar = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' fill='%234a5568'/><circle cx='12' cy='8' r='4' fill='%23ffffff'/><path d='M12 14c-4.42 0-8 2-8 4.5V20h16v-1.5c0-2.5-3.58-4.5-8-4.5z' fill='%23ffffff'/></svg>";
-            const customAvatar = "./src/user-avatar.png";
+            const avatarIcon = document.getElementById('zorinAvatarIcon');
+            const defaultClass = 'bi-person text-white text-opacity-40';
+            const customClass = 'bi-person-fill text-primary';
             
             function updateAvatarSource() {
-                if (usernameInput && avatarImg) {
-                    if (usernameInput.value.trim().toLowerCase() === 'admin') {
-                        avatarImg.src = customAvatar;
-                    } else {
-                        avatarImg.src = defaultAvatar;
+                if (usernameInput && avatarIcon) {
+                    const isCustom = usernameInput.value.trim().toLowerCase() === 'admin';
+                    const targetClass = isCustom ? customClass : defaultClass;
+                    
+                    // Only trigger if classes are actually changing
+                    if (avatarIcon.getAttribute('data-current-class') !== targetClass) {
+                        // Reset all class names to base bi then add target
+                        avatarIcon.className = `bi ${targetClass}`;
+                        avatarIcon.setAttribute('data-current-class', targetClass);
+                        
+                        // Trigger CSS animation
+                        avatarIcon.classList.remove('avatar-entrance-effect');
+                        void avatarIcon.offsetWidth; // Force reflow
+                        avatarIcon.classList.add('avatar-entrance-effect');
                     }
                 }
             }
