@@ -15,7 +15,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
     <!-- Custom Style Sheet (fusión directa de tus hojas de estilo) -->
-  <script type="module" crossorigin src="./assets/index-BwJdZvjc.js"></script>
+  <script type="module" crossorigin src="./assets/index-Bf4r0wMM.js"></script>
   <link rel="stylesheet" crossorigin href="./assets/index-C420h_ZV.css">
 </head>
 
@@ -63,7 +63,7 @@
                 </div>
 
                 <div class="mt-auto my-3 border-top border-light border-opacity-25"></div>
-                <footer class="mb-4 text-center px-3">
+                <footer class="mb-4 text-center px-3 pt-2">
                     <small class="text-white text-opacity-50 d-block">
                         <span class="sidebar-text-full">Modo Desarrollo</span>
                         <span class="sidebar-text-short d-none">Dev.</span>
@@ -570,14 +570,14 @@ sequenceDiagram
                             <div class="zorin-center-login">
                                 <!-- Avatar -->
                                 <div class="zorin-avatar shadow-lg">
-                                    <img src="./assets/user-avatar-CTH0V3AH.png" alt="User Avatar">
+                                    <img src="" alt="User Avatar" class="no-zoom">
                                 </div>
 
                                 <!-- Username Selection / Input Step -->
                                 <div id="loginStepUsername" class="w-100 text-center">
                                     <h5 class="fw-semibold text-white mb-3" style="font-size: 1.25rem;">Enter Username</h5>
                                     <div class="px-4">
-                                        <input type="text" id="zorinUsername" class="zorin-input text-center mb-3" placeholder="Username" autocomplete="username" value="admin">
+                                        <input type="text" id="zorinUsername" class="zorin-input text-center mb-3" placeholder="Username" autocomplete="username">
                                         <button class="btn btn-glass-primary px-4 py-2 rounded-pill w-100" onclick="goToPasswordStep()">Next</button>
                                     </div>
                                 </div>
@@ -633,6 +633,29 @@ sequenceDiagram
             if (orb) {
                 orb.style.left = e.clientX + 'px';
                 orb.style.top = e.clientY + 'px';
+            }
+        });
+
+        // Dynamic Avatar Loader based on Username
+        document.addEventListener('DOMContentLoaded', () => {
+            const usernameInput = document.getElementById('zorinUsername');
+            const avatarImg = document.querySelector('.zorin-avatar img');
+            const defaultAvatar = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' fill='%234a5568'/><circle cx='12' cy='8' r='4' fill='%23ffffff'/><path d='M12 14c-4.42 0-8 2-8 4.5V20h16v-1.5c0-2.5-3.58-4.5-8-4.5z' fill='%23ffffff'/></svg>";
+            const customAvatar = "./src/user-avatar.png";
+            
+            function updateAvatarSource() {
+                if (usernameInput && avatarImg) {
+                    if (usernameInput.value.trim().toLowerCase() === 'admin') {
+                        avatarImg.src = customAvatar;
+                    } else {
+                        avatarImg.src = defaultAvatar;
+                    }
+                }
+            }
+            
+            if (usernameInput) {
+                usernameInput.addEventListener('input', updateAvatarSource);
+                updateAvatarSource();
             }
         });
 
@@ -721,6 +744,8 @@ sequenceDiagram
                 setTimeout(() => {
                     centerForm.style.transform = 'scale(1)';
                     centerForm.style.opacity = '1';
+                    document.getElementById('zorinUsername').value = '';
+                    document.getElementById('zorinUsername').dispatchEvent(new Event('input'));
                     document.getElementById('zorinPassword').value = '';
                     goToUsernameStep();
                 }, 1500);
