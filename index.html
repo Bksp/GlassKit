@@ -587,9 +587,12 @@ sequenceDiagram
                                     <img id="zorinAvatarImg" src="./src/user-avatar.png" alt="User Avatar" class="no-zoom d-none">
                                 </div>
 
+                                <!-- Greeting Text (Persistent and animated) -->
+                                <div id="zorinGreeting" class="zorin-username text-white text-center m-0">Hi?</div>
+
                                 <!-- Username Selection / Input Step -->
                                 <div id="loginStepUsername" class="w-100 text-center">
-                                    <form onsubmit="event.preventDefault(); goToPasswordStep();" class="zorin-input-wrapper mt-3 px-4">
+                                    <form onsubmit="event.preventDefault(); goToPasswordStep();" class="zorin-input-wrapper mt-1 px-4">
                                         <!-- Left spacer to balance centering -->
                                         <div class="zorin-spacer"></div>
                                         
@@ -607,8 +610,7 @@ sequenceDiagram
 
                                 <!-- Password Entry Step (Zorin Style) -->
                                 <div id="loginStepPassword" class="w-100 text-center d-none">
-                                    <div class="zorin-username text-white" id="displayUsername">LinuxTechi</div>
-                                    <form onsubmit="event.preventDefault(); submitZorinLogin();" class="zorin-input-wrapper mt-3 px-4">
+                                    <form onsubmit="event.preventDefault(); submitZorinLogin();" class="zorin-input-wrapper mt-1 px-4">
                                         <!-- Back arrow button -->
                                         <button type="button" class="zorin-back-btn" onclick="goToUsernameStep()" aria-label="Go Back">
                                             <i class="bi bi-arrow-left-short fs-4"></i>
@@ -742,6 +744,18 @@ sequenceDiagram
         setInterval(updateZorinClock, 1000);
         updateZorinClock();
 
+        // Zorin OS Greeting Text Management with Animation
+        function updateZorinGreeting(newText) {
+            const greetingEl = document.getElementById('zorinGreeting');
+            if (greetingEl) {
+                greetingEl.classList.add('greeting-hidden');
+                setTimeout(() => {
+                    greetingEl.textContent = newText;
+                    greetingEl.classList.remove('greeting-hidden');
+                }, 200);
+            }
+        }
+
         // Zorin OS Login Form Step Management
         window.goToPasswordStep = function() {
             const usernameInput = document.getElementById('zorinUsername');
@@ -751,7 +765,7 @@ sequenceDiagram
                 return;
             }
             
-            document.getElementById('displayUsername').textContent = username;
+            updateZorinGreeting(`Hi ${username}!`);
             
             const stepUser = document.getElementById('loginStepUsername');
             const stepPass = document.getElementById('loginStepPassword');
@@ -766,6 +780,8 @@ sequenceDiagram
         }
 
         window.goToUsernameStep = function() {
+            updateZorinGreeting('Hi?');
+            
             const stepUser = document.getElementById('loginStepUsername');
             const stepPass = document.getElementById('loginStepPassword');
             
@@ -799,15 +815,19 @@ sequenceDiagram
             const centerForm = document.querySelector('.zorin-center-login');
             
             if (user === 'admin' && pass === 'admin123') {
-                centerForm.style.transition = 'transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s ease';
-                centerForm.style.transform = 'scale(0.95)';
-                centerForm.style.opacity = '0.5';
+                // Hide inputs to make only the avatar and "Welcome" text visible
+                const stepPass = document.getElementById('loginStepPassword');
+                if (stepPass) {
+                    stepPass.classList.add('d-none');
+                }
                 
+                // Animate greeting to "Welcome"
+                updateZorinGreeting('Welcome');
+                
+                // Keep the glass alert notification
                 showGlassAlert('Welcome to GlassKit OS! Access granted.', 'success');
                 
                 setTimeout(() => {
-                    centerForm.style.transform = 'scale(1)';
-                    centerForm.style.opacity = '1';
                     document.getElementById('zorinUsername').value = '';
                     document.getElementById('zorinUsername').dispatchEvent(new Event('input'));
                     document.getElementById('zorinPassword').value = '';
