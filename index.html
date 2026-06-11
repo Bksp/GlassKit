@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlassKit - Native Testing Environment</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Highlight.js VS2015 Dark Theme -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/vs2015.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <!-- Custom Style Sheet (fusión directa de tus hojas de estilo) -->
+  <script type="module" crossorigin src="./assets/index-D9FhxVFC.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-BFuIOT3v.css">
+</head>
+
+<body>
+    <div id="ambient-orb"></div>
+    <div class="sidebar-overlay"></div>
+
+    <div class="d-flex">
+        <!-- Sí -->
+        <nav class="sidebar d-flex flex-column" id="sidebarMenu" tabindex="-1">
+            <header
+                class="d-flex justify-content-between align-items-center p-3 border-bottom border-light border-opacity-25"
+                id="sidebarHeader">
+                <div class="sidebar-logo-container d-flex align-items-center">
+                    <i class="bi bi-box-seam me-2 text-primary fs-4" id="sidebarLogoIcon"></i>
+                    <div class="sidebar-logo-text ms-1">
+                        <h4 class="fw-bold m-0 text-white" id="sidebarMenuLabel" style="font-size: 1.2rem;">GlassKit
+                        </h4>
+                    </div>
+                </div>
+                <button class="toggle-sidebar-btn" id="sidebarToggleBtn" aria-label="Toggle Sidebar">
+                    <div class="hamburger-lines">
+                        <span class="line line1"></span>
+                        <span class="line line2"></span>
+                        <span class="line line3"></span>
+                    </div>
+                </button>
+            </header>
+
+            <div class="pt-3 flex-grow-1">
+                <div class="px-3">
+                    <a href="#overview-section" class="nav-link active" data-page="page-uikit"> <i
+                            class="bi bi-info-square me-3"></i> <span>Overview</span> </a>
+                    <a href="#theme-section" class="nav-link" data-page="page-uikit"> <i class="bi bi-palette me-3"></i>
+                        <span>Motor de Temas</span> </a>
+                    <a href="#grids-section" class="nav-link" data-page="page-uikit"> <i
+                            class="bi bi-grid-1x2 me-3"></i> <span>Sistema de Grillas</span> </a>
+                    <a href="#components-section" class="nav-link" data-page="page-uikit"> <i
+                            class="bi bi-layers me-3"></i> <span>Componentes UI</span> </a>
+                    <a href="#programming-section" class="nav-link" data-page="page-fundamentos"> <i
+                            class="bi bi-journal-code me-3"></i> <span>Guía de Uso</span> </a>
+                </div>
+
+                <footer class="mt-auto mb-4 border-top border-light border-opacity-25 pt-3 text-center px-3">
+                    <small class="text-white text-opacity-50 d-block">
+                        <span class="sidebar-text-full">Modo Desarrollo</span>
+                        <span class="sidebar-text-short d-none">Dev.</span>
+                    </small>
+                </footer>
+        </nav>
+
+        <!-- Main Workspace Area -->
+        <!-- Main Content Area -->
+        <main class="main-content flex-grow-1 w-100">
+            <!-- Top Navbar for Toggle Sidebar -->
+            <gk-navbar id="main-navbar" title="GlassKit Workspace">
+                <div class="badge badge-glass bg-primary bg-opacity-25 text-primary border-primary border-opacity-50 me-3">
+                    v1.0.0</div>
+                <div class="rounded-circle border border-primary border-opacity-50 bg-primary bg-opacity-25 text-primary d-flex justify-content-center align-items-center"
+                    style="width: 40px; height: 40px; font-weight: bold; font-family: monospace;">&lt;/&gt;</div>
+            </gk-navbar>
+
+            <div class="w-100 position-relative">
+                <!-- Sí -->
+                <div id="page-uikit" class="page-view active">
+                    <section id="overview-section" class="content-section mb-5 pt-4">
+                        <div class="glass-card p-5 mb-4">
+                            <h1 class="display-5 fw-bold text-white mb-3">GlassKit v1.0</h1>
+                            <p class="lead text-white text-opacity-75">
+                                Un framework CSS/JS moderno inspirado en Material Design pero impulsado por
+                                Glassmorphism interactivo y temas globales inyectables.
+                            </p>
+                            <hr class="border-light border-opacity-25 my-4">
+                            <div class="row g-4 mt-2">
+                                <div class="col-md-6 col-lg-3">
+                                    <h5><i class="bi bi-cpu text-primary me-2"></i> Motor de Temas</h5>
+                                    <p class="text-white text-opacity-50 fs-6">Sobrescribe dinámicamente Bootstrap en
+                                        tiempo real usando inyección CSS Variables.</p>
+                                </div>
+                                <div class="col-md-6 col-lg-3">
+                                    <h5><i class="bi bi-droplet-half text-info me-2"></i> Glassmorphism</h5>
+                                    <p class="text-white text-opacity-50 fs-6">Estética translúcida, desenfoque de fondo
+                                        y luces ambientales.</p>
+                                </div>
+                                <div class="col-md-6 col-lg-3">
+                                    <h5><i class="bi bi-diagram-3 text-success me-2"></i> Mermaid Integrado</h5>
+                                    <p class="text-white text-opacity-50 fs-6">Soporte para diagramas dinámicos que
+                                        heredan los colores del tema.</p>
+                                </div>
+                                <div class="col-md-6 col-lg-3">
+                                    <h5><i class="bi bi-window-stack text-warning me-2"></i> Arquitectura Flexible</h5>
+                                    <p class="text-white text-opacity-50 fs-6">Soporte para Single-Page Dashboard (como
+                                        esta demo) o navegación aislada por páginas.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="theme-section" class="glass-card p-4 mt-4">
+                            <div class="row g-4">
+                                <div class="col-12 text-center">
+                                    <h3 class="h4 mb-3 fw-bold"><i
+                                            class="bi bi-palette-fill me-2 text-primary"></i>Motor de Temas Dinámicos
+                                    </h3>
+                                    <p class="text-white text-opacity-75 mb-4">Cambia el tema para ver cómo todos los
+                                        componentes, grillas y diagramas heredan automáticamente la nueva paleta de
+                                        colores CSS.</p>
+                                    <div class="d-flex justify-content-center gap-3">
+                                        <button class="btn btn-glass-secondary theme-btn border-primary px-4 py-2"
+                                            data-theme="default" onclick="ThemeManager.setTheme('default')">
+                                            <i class="bi bi-moon-stars me-2"></i>Dark Base
+                                        </button>
+                                        <button class="btn btn-glass-secondary theme-btn px-4 py-2"
+                                            data-theme="cyberpunk" onclick="ThemeManager.setTheme('cyberpunk')">
+                                            <i class="bi bi-lightning-charge text-info me-2"></i>Cyberpunk Neon
+                                        </button>
+                                        <button class="btn btn-glass-secondary theme-btn px-4 py-2" data-theme="nature"
+                                            onclick="ThemeManager.setTheme('nature')">
+                                            <i class="bi bi-tree text-success me-2"></i>Nature Bio
+                                        </button>
+                                        <button class="btn btn-glass-secondary theme-btn px-4 py-2" data-theme="ubuntu"
+                                            onclick="ThemeManager.setTheme('ubuntu')">
+                                            <i class="bi bi-ubuntu text-warning me-2"></i>Ubuntu
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Sí -->
+                    <section id="grids-section" class="content-section mb-5 pt-4">
+                        <h3 class="h4 mb-4 fw-bold text-white">Sistema de Grillas y Layout</h3>
+                        <div class="row g-4 mb-4">
+                            <div class="col-12">
+                                <div
+                                    class="glass-card p-4 text-center border-info border-opacity-50 bg-info bg-opacity-10">
+                                    <span class="font-monospace text-white fw-medium fs-6">col-12 (100%)</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div
+                                    class="glass-card p-4 text-center border-success border-opacity-50 bg-success bg-opacity-10">
+                                    <span class="font-monospace text-white fw-medium fs-6">col-md-6 (50%)</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div
+                                    class="glass-card p-4 text-center border-success border-opacity-50 bg-success bg-opacity-10">
+                                    <span class="font-monospace text-white fw-medium fs-6">col-md-6 (50%)</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div
+                                    class="glass-card p-4 text-center border-primary border-opacity-50 bg-primary bg-opacity-10">
+                                    <span class="font-monospace text-white fw-medium fs-6">col-lg-4 (33%)</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div
+                                    class="glass-card p-4 text-center border-primary border-opacity-50 bg-primary bg-opacity-10">
+                                    <span class="font-monospace text-white fw-medium fs-6">col-lg-4 (33%)</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div
+                                    class="glass-card p-4 text-center border-primary border-opacity-50 bg-primary bg-opacity-10">
+                                    <span class="font-monospace text-white fw-medium fs-6">col-lg-4 (33%)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+
+
+
+
+                    <!-- Sí -->
+                    <section id="components-section" class="content-section mb-5 pt-4">
+                        <div class="row g-4">
+
+                            <!-- Consola Interactiva -->
+                            <div class="col-lg-5">
+                                <section class="glass-card p-4 h-100 d-flex flex-column">
+                                    <header>
+                                        <h3 class="h5 mb-2 fw-bold"><i class="bi bi-terminal me-2 text-info"></i>Consola
+                                            Interactiva</h3>
+                                    </header>
+                                    <div id="consoleLogs" class="console-panel flex-grow-1 mt-3">
+                                        <div class="console-line system">[Sistema] Interfaz renderizada usando CSS
+                                            nativo.</div>
+                                        <div class="console-line success">[Éxito] Bootstrap 5 inyectado correctamente.
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+
+                            <!-- Highlight.js Nativo -->
+                            <div class="col-lg-7">
+                                <article class="glass-card p-4 h-100 d-flex flex-column">
+                                    <header class="d-flex justify-content-between align-items-center mb-3">
+                                        <h3 class="h5 m-0 fw-bold"><i
+                                                class="bi bi-filetype-css me-2 text-warning"></i>Highlight.js Nativo
+                                        </h3>
+                                        <span
+                                            class="badge badge-glass bg-warning bg-opacity-25 text-warning border-warning border-opacity-25">Global</span>
+                                    </header>
+                                    <p class="text-white text-opacity-75 small">Renderizado de bloques de código en
+                                        tiempo real.</p>
+                                    <pre class="code-container flex-grow-1 m-0"><code class="language-css">/* styles.css extraído literalmente de tus fuentes */
+body { 
+    font-family: 'Poppins', sans-serif; 
+    background-color: var(--bg-color);
+    background-image: 
+        radial-gradient(at 0% 0%, var(--grad1-color) 0%, transparent 50%);
+}</code></pre>
+                                </article>
+                            </div>
+                            <!-- Alert Components -->
+                            <div class="col-12">
+                                <h3 class="h5 mb-3 fw-bold"><i
+                                        class="bi bi-exclamation-triangle me-2 text-warning"></i>Alertas Dinámicas
+                                    (Bootstrap Override)</h3>
+                                <div class="glass-card p-4">
+                                    <div class="alert alert-primary bg-primary bg-opacity-10 border-primary text-primary"
+                                        role="alert">
+                                        Una alerta simple con color <strong class="fw-bold">Primario</strong>. El color
+                                        cambiará según el tema seleccionado.
+                                    </div>
+                                    <div class="alert alert-success bg-success bg-opacity-10 border-success text-success"
+                                        role="alert">
+                                        Una alerta simple con color <strong class="fw-bold">Success</strong>. Excelente
+                                        para notificaciones positivas.
+                                    </div>
+                                    <div class="alert alert-danger bg-danger bg-opacity-10 border-danger text-danger mb-0"
+                                        role="alert">
+                                        Una alerta simple con color <strong class="fw-bold">Danger</strong>. Ideal para
+                                        mensajes de error.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Botones Showcase -->
+                            <div class="col-12">
+                                <article class="glass-card p-4">
+                                    <header class="d-flex justify-content-between align-items-center mb-4">
+                                        <h3 class="h5 m-0 fw-bold">
+                                            <i class="bi bi-hand-index-thumb me-2 text-primary"></i>Botones y Controles
+                                            Glass
+                                        </h3>
+                                        <span
+                                            class="badge badge-glass bg-primary bg-opacity-25 text-primary border-primary border-opacity-25">Componentes</span>
+                                    </header>
+
+                                    <!-- Estilos Estándar -->
+                                    <div class="mb-4">
+                                        <h4 class="h6 text-white text-opacity-75 mb-3">Estilos Estándar (Clases CSS)
+                                        </h4>
+                                        <div class="d-flex flex-wrap gap-3">
+                                            <button class="btn btn-glass-primary">
+                                                <i class="bi bi-circle-fill me-2 small"></i>Primario
+                                            </button>
+                                            <button class="btn btn-glass-secondary">
+                                                Secundario
+                                            </button>
+                                            <button class="btn btn-glass-success">
+                                                <i class="bi bi-check-circle me-2"></i>Éxito
+                                            </button>
+                                            <button class="btn btn-glass-danger">
+                                                <i class="bi bi-x-circle me-2"></i>Peligro
+                                            </button>
+                                            <button class="btn btn-glass-warning">
+                                                <i class="bi bi-exclamation-triangle me-2"></i>Advertencia
+                                            </button>
+                                            <button class="btn btn-glass-info">
+                                                <i class="bi bi-info-circle me-2"></i>Información
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Web Components Customizados -->
+                                    <div class="mb-4">
+                                        <h4 class="h6 text-white text-opacity-75 mb-3">Web Components Personalizados
+                                            (&lt;gk-button&gt;)</h4>
+                                        <div class="d-flex flex-wrap gap-3">
+                                            <gk-button variant="primary">
+                                                <i class="bi bi-cpu me-2"></i>Componente Primario
+                                            </gk-button>
+                                            <gk-button variant="secondary">
+                                                Componente Secundario
+                                            </gk-button>
+                                            <gk-button variant="success">
+                                                <i class="bi bi-check2-all me-2"></i>Componente Éxito
+                                            </gk-button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Estados Especiales -->
+                                    <div>
+                                        <h4 class="h6 text-white text-opacity-75 mb-3">Estados y Efectos</h4>
+                                        <div class="d-flex flex-wrap gap-3">
+                                            <button class="btn btn-glass-primary pulse-animation">
+                                                <i class="bi bi-activity me-2"></i>Animación Pulse / Glow
+                                            </button>
+                                            <button class="btn btn-glass-primary" disabled>
+                                                Primario Deshabilitado
+                                            </button>
+                                            <button class="btn btn-glass-secondary" disabled>
+                                                Secundario Deshabilitado
+                                            </button>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+
+                            <!-- Data Cards -->
+                            <div class="col-md-6 col-lg-4">
+                                <article class="glass-card p-4 text-center h-100">
+                                    <div class="mb-3">
+                                        <i class="bi bi-graph-up-arrow fs-1 text-primary"></i>
+                                    </div>
+                                    <h4 class="text-white text-opacity-75 mb-1">Ventas Semanales</h4>
+                                    <h2 class="fw-bold text-white mb-3">$24,500</h2>
+                                    <span
+                                        class="badge badge-glass bg-success bg-opacity-25 text-success border-success">+15%
+                                        vs semana anterior</span>
+                                </article>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <article class="glass-card p-4 text-center h-100">
+                                    <div class="mb-3">
+                                        <i class="bi bi-people fs-1 text-info"></i>
+                                    </div>
+                                    <h4 class="text-white text-opacity-75 mb-1">Usuarios Activos</h4>
+                                    <h2 class="fw-bold text-white mb-3">1,250</h2>
+                                    <span class="badge badge-glass bg-info bg-opacity-25 text-info border-info">Usuarios
+                                        conectados ahora</span>
+                                </article>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <article class="glass-card p-4 text-center h-100">
+                                    <div class="mb-3">
+                                        <i class="bi bi-shield-check fs-1 text-success"></i>
+                                    </div>
+                                    <h4 class="text-white text-opacity-75 mb-1">Estado del Sistema</h4>
+                                    <h2 class="fw-bold text-white mb-3">Óptimo</h2>
+                                    <span class="badge badge-glass bg-secondary bg-opacity-50 text-white">Último
+                                        escaneo: hace 5 min</span>
+                                </article>
+                            </div>
+
+                            <!-- Glass Forms -->
+                            <div class="col-lg-6">
+                                <article class="glass-card p-4 h-100">
+                                    <h3 class="h5 mb-4 fw-bold"><i
+                                            class="bi bi-ui-checks me-2 text-primary"></i>Formularios Glass</h3>
+                                    <form>
+                                        <div class="mb-3">
+                                            <label class="form-label text-white text-opacity-75">Correo
+                                                Electrónico</label>
+                                            <input type="email" class="form-control" placeholder="ejemplo@glasskit.com">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label text-white text-opacity-75">Seleccionar
+                                                Opción</label>
+                                            <select class="form-select">
+                                                <option selected>Elige un rol...</option>
+                                                <option value="1">Administrador</option>
+                                                <option value="2">Desarrollador</option>
+                                                <option value="3">Espectador</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label text-white text-opacity-75">Rango de
+                                                Sensibilidad</label>
+                                            <input type="range" class="form-range" id="customRange1">
+                                        </div>
+                                        <div class="d-flex justify-content-between mb-4">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" role="switch"
+                                                    id="flexSwitchCheckChecked" checked>
+                                                <label class="form-check-label text-white text-opacity-75"
+                                                    for="flexSwitchCheckChecked">Sincronización</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                                    id="flexRadioDefault1" checked>
+                                                <label class="form-check-label text-white text-opacity-75"
+                                                    for="flexRadioDefault1">Activo</label>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="btn btn-glass-primary w-100">Guardar
+                                            Cambios</button>
+                                    </form>
+                                </article>
+                            </div>
+
+                            <!-- Interactive List -->
+                            <div class="col-lg-6">
+                                <article class="glass-card p-4 h-100">
+                                    <h3 class="h5 mb-4 fw-bold"><i class="bi bi-list-task me-2 text-info"></i>Lista de
+                                        Tareas (Hover)</h3>
+                                    <ul class="list-group list-group-flush bg-transparent">
+                                        <li
+                                            class="list-group-item bg-transparent text-white border-light border-opacity-10 d-flex justify-content-between align-items-center py-3">
+                                            <div>
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Override de Bootstrap
+                                            </div>
+                                            <span class="badge bg-success rounded-pill">Completado</span>
+                                        </li>
+                                        <li
+                                            class="list-group-item bg-transparent text-white border-light border-opacity-10 d-flex justify-content-between align-items-center py-3">
+                                            <div>
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Sidebar Responsivo
+                                            </div>
+                                            <span class="badge bg-success rounded-pill">Completado</span>
+                                        </li>
+                                        <li
+                                            class="list-group-item bg-transparent text-white border-light border-opacity-10 d-flex justify-content-between align-items-center py-3">
+                                            <div>
+                                                <i class="bi bi-circle text-white text-opacity-25 me-2"></i>
+                                                Añadir Animaciónes 3D
+                                            </div>
+                                            <span
+                                                class="badge bg-primary bg-opacity-25 text-primary border border-primary border-opacity-50 rounded-pill">Pendiente</span>
+                                        </li>
+                                    </ul>
+                                </article>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+
+
+                <div id="page-fundamentos" class="page-view d-none"><!-- Sí -->
+                    <section id="programming-section" class="content-section mb-5 pt-4">
+                        <h3 class="h4 mb-4 fw-bold text-white">Guía de Uso: GlassKit</h3>
+                        <p class="text-white text-opacity-75 mb-4">
+                            Aprende a integrar, estructurar y potenciar tus interfaces con la arquitectura Glassmorphism
+                            de GlassKit. Los diagramas interactivos ilustran el funcionamiento interno del framework.
+                        </p>
+
+                        <div class="row g-4">
+                            <div class="col-lg-4">
+                                <article class="glass-card p-4 h-100">
+                                    <h4 class="h5 mb-3 fw-bold"><i class="bi bi-box-seam text-warning me-2"></i>
+                                        Instalación Base</h4>
+                                    <p class="text-white text-opacity-75 small">
+                                        GlassKit funciona como una envoltura (wrapper) sobre Bootstrap 5. Inyecta
+                                        dinámicamente las variables CSS necesarias para lograr el efecto cristalizado.
+                                    </p>
+                                    <hr class="border-light border-opacity-25 my-3">
+                                    <p class="text-white text-opacity-50 small mb-0">
+                                        Importa <code>main.js</code> como módulo en tu HTML para activar el motor de
+                                        temas y el enrutador SPA.
+                                    </p>
+                                </article>
+                            </div>
+                            <div class="col-lg-8">
+                                <article class="glass-card p-4 h-100">
+                                    <h4 class="h5 mb-3 fw-bold"><i class="bi bi-diagram-3 text-primary me-2"></i>
+                                        Arquitectura del Framework</h4>
+
+                                    <!-- Contenedor Mermaid -->
+                                    <div
+                                        class="bg-dark bg-opacity-25 rounded-3 p-3 text-center d-flex justify-content-center">
+                                        <pre class="mermaid" id="mermaid1">
+graph TD
+    A[index.html] --> B(GlassKit Core)
+    B --> C{Motor CSS Variables}
+    C -->|Inyecta Colores| D[Bootstrap 5]
+    C -->|Actualiza SVGs| E[Mermaid.js]
+    B --> F[Efectos Glassmorphism]
+                                    </pre>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+
+                        <div class="row g-4 mt-2">
+                            <div class="col-lg-4">
+                                <article class="glass-card p-4 h-100">
+                                    <h4 class="h5 mb-3 fw-bold"><i class="bi bi-code-square text-info me-2"></i>
+                                        Utilizando Clases</h4>
+                                    <p class="text-white text-opacity-75 small mb-0">
+                                        Añade la clase <code>glass-card</code> a cualquier contenedor. Usa utilidades
+                                        como <code>btn-glass-primary</code> para botones esmerilados y
+                                        <code>bg-opacity-10</code> para paneles translúcidos.
+                                    </p>
+                                </article>
+                            </div>
+                            <div class="col-lg-8">
+                                <article class="glass-card p-4 h-100">
+                                    <h4 class="h5 mb-3 fw-bold"><i class="bi bi-arrow-repeat text-info me-2"></i> Ciclo
+                                        de Vida del ThemeManager</h4>
+
+                                    <div
+                                        class="bg-dark bg-opacity-25 rounded-3 p-3 text-center d-flex justify-content-center">
+                                        <pre class="mermaid" id="mermaid2">
+sequenceDiagram
+    participant U as Usuario
+    participant TM as ThemeManager (JS)
+    participant DOM as document.documentElement
+    participant M as Mermaid.js
+    U->>TM: Clic en "Cambiar Tema"
+    activate TM
+    TM->>DOM: Sobrescribe --bs-primary, --bg-color
+    TM-->>M: Evento: glasskit-theme-changed
+    activate M
+    M-->>M: Re-renderiza SVG con nuevos colores
+    deactivate M
+    deactivate TM
+                                    </pre>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Bootstrap 5 Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Inicializar Highlight.js globalmente como en tu original
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.querySelectorAll('pre code').forEach((el) => {
+                hljs.highlightElement(el);
+            });
+        });
+
+        // Ambient Orb Effect como en tu original
+        document.addEventListener('mousemove', function (e) {
+            const orb = document.getElementById('ambient-orb');
+            if (orb) {
+                orb.style.left = e.clientX + 'px';
+                orb.style.top = e.clientY + 'px';
+            }
+        });
+    </script>
+</body>
+
+</html>
