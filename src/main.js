@@ -2,6 +2,13 @@ import './styles/main.css';
 import { ThemeManager } from './utils/theme-manager.js';
 import mermaid from 'mermaid';
 
+// Import modular Web Components
+import './components/GlassCard/GlassCard.js';
+import './components/Layout/Sidebar.js';
+import './components/Layout/Navbar.js';
+import './components/GlassButton/GlassButton.js';
+import './components/CodeViewer/CodeViewer.js';
+
 // 1. Inyección de dependencias automáticas
 function injectDependencies() {
   if (typeof document === 'undefined') return;
@@ -37,69 +44,7 @@ function injectDependencies() {
   }
 }
 
-// 2. Definición de Web Components Light DOM
-class GlassCard extends HTMLElement {
-  connectedCallback() {
-    this.classList.add('glass-card', 'p-4', 'd-block');
-  }
-}
 
-class Sidebar extends HTMLElement {
-  connectedCallback() {
-    this.classList.add('sidebar', 'd-flex', 'flex-column');
-  }
-}
-
-class Navbar extends HTMLElement {
-  connectedCallback() {
-    const title = this.getAttribute('title') || 'Dashboard';
-    const actionsHtml = this.innerHTML;
-    
-    // Configuración base del navbar
-    this.classList.add('glass-nav', 'mb-4', 'p-3', 'px-4', 'd-flex', 'justify-content-between', 'align-items-center');
-    this.classList.remove('d-block');
-
-    this.innerHTML = `
-      <div class="nav-brand d-flex align-items-center">
-          <h2 class="h5 mb-0 text-white fw-bold text-truncate gk-navbar-title" style="letter-spacing: 1px;">${title}</h2>
-      </div>
-      
-      <div class="nav-actions-container d-flex align-items-center">
-          <div class="d-none d-sm-flex align-items-center me-3">
-              ${actionsHtml}
-          </div>
-          
-          <button class="nav-toggle-btn toggle-sidebar-btn d-lg-none" aria-label="Toggle Sidebar">
-              <div class="hamburger-lines">
-                  <span class="line line1"></span>
-                  <span class="line line2"></span>
-                  <span class="line line3"></span>
-              </div>
-          </button>
-      </div>
-    `;
-  }
-
-  static get observedAttributes() {
-    return ['title'];
-  }
-
-  attributeChangedCallback(name, oldValue, newValue) {
-    if (name === 'title') {
-      const titleEl = this.querySelector('.gk-navbar-title');
-      if (titleEl) {
-        titleEl.textContent = newValue;
-      }
-    }
-  }
-}
-
-class GlassButton extends HTMLElement {
-  connectedCallback() {
-    const variant = this.getAttribute('variant') || 'secondary';
-    this.classList.add('btn', `btn-glass-${variant}`, 'd-inline-flex', 'align-items-center');
-  }
-}
 
 function initCustomSelects() {
   if (typeof document === 'undefined') return;
@@ -346,16 +291,32 @@ export function initGlassKitUI() {
   ThemeManager.init();
   initCustomSelects();
   
-  if (typeof customElements !== 'undefined') {
-    if (!customElements.get('gk-glass-card')) customElements.define('gk-glass-card', GlassCard);
-    if (!customElements.get('gk-sidebar')) customElements.define('gk-sidebar', Sidebar);
-    if (!customElements.get('gk-navbar')) customElements.define('gk-navbar', Navbar);
-    if (!customElements.get('gk-button')) customElements.define('gk-button', GlassButton);
-  }
+
 
   // Caching DOM elements para mejor rendimiento
   const contentSections = document.querySelectorAll('.content-section, #theme-section');
   const navLinks = document.querySelectorAll('.sidebar .nav-link');
+
+  // Helper to adjust navbar visibility based on page and responsive state
+  const adjustNavbarVisibility = (targetPageId) => {
+    const mainNavbar = document.getElementById('main-navbar');
+    if (!mainNavbar) return;
+    
+    if (!targetPageId) {
+      const activePage = document.querySelector('.page-view:not(.d-none)');
+      targetPageId = activePage ? activePage.id : '';
+    }
+    
+    if (targetPageId === 'page-login') {
+      if (window.innerWidth < 992) {
+        mainNavbar.classList.remove('d-none');
+      } else {
+        mainNavbar.classList.add('d-none');
+      }
+    } else {
+      mainNavbar.classList.remove('d-none');
+    }
+  };
 
   // Helper para actualizar el título del navbar (solo en móviles)
   const updateNavbarTitle = (titleText) => {
@@ -376,13 +337,13 @@ export function initGlassKitUI() {
       updateNavbarTitle(titleSpan.textContent.trim());
     }
     
-    // Ocultar navbar superior si la página activa por defecto es el login
+    // Ocultar navbar superior si la página activa por defecto es el login (ajustado para móvil)
     const targetPageId = activeLink.getAttribute('data-page');
-    const mainNavbar = document.getElementById('main-navbar');
-    if (mainNavbar && targetPageId === 'page-login') {
-      mainNavbar.classList.add('d-none');
-    }
+    adjustNavbarVisibility(targetPageId);
   }
+
+  // Escuchar redimensionamiento para actualizar la visibilidad del navbar
+  window.addEventListener('resize', () => adjustNavbarVisibility());
 
   // Inicialización de Mermaid base
   const mermaidNodes = document.querySelectorAll('.mermaid');
@@ -451,15 +412,8 @@ export function initGlassKitUI() {
               targetPage.classList.remove('d-none');
           }
           
-          // Ocultar / Mostrar el navbar superior de GlassKit Workspace
-          const mainNavbar = document.getElementById('main-navbar');
-          if (mainNavbar) {
-              if (targetPageId === 'page-login') {
-                  mainNavbar.classList.add('d-none');
-              } else {
-                  mainNavbar.classList.remove('d-none');
-              }
-          }
+          // Ocultar / Mostrar el navbar superior de GlassKit Workspace (ajustado para móvil)
+          adjustNavbarVisibility(targetPageId);
       }
 
       // Cerrar sidebar en móviles tras hacer clic
@@ -559,8 +513,8 @@ if (typeof window !== 'undefined') {
   // Exponer el ThemeManager a nivel global para que puedas llamarlo desde la consola o botones
   window.ThemeManager = ThemeManager;
   
-  // Exponer el Toast Alert de GlassKit globalmente
-  window.showGlassAlert = function(message, type = 'primary') {
+  // Exponer el Toast Alert de GlassKit globalmente (soporta botones de acción opcionales)
+  window.showGlassAlert = function(message, type = 'primary', buttons = []) {
     let container = document.getElementById('gk-toast-container');
     if (!container) {
       container = document.createElement('div');
@@ -571,7 +525,8 @@ if (typeof window !== 'undefined') {
     }
     
     const toast = document.createElement('div');
-    toast.className = `glass-toast toast-type-${type} p-3 mb-2 rounded-3 shadow-lg d-flex align-items-center justify-content-between`;
+    const hasButtons = buttons && buttons.length > 0;
+    toast.className = `alert alert-${type} alert-toast p-3 mb-2 rounded-3 shadow-lg d-flex align-items-center justify-content-between ${hasButtons ? 'has-actions' : ''}`;
     
     let iconClass = 'bi-info-circle-fill';
     let textClass = 'text-info';
@@ -580,22 +535,52 @@ if (typeof window !== 'undefined') {
     if (type === 'warning') { iconClass = 'bi-exclamation-circle-fill'; textClass = 'text-warning'; }
     if (type === 'primary') { iconClass = 'bi-info-circle-fill'; textClass = 'text-primary'; }
 
-    toast.innerHTML = `
-      <div class="d-flex align-items-center gap-3">
-          <i class="bi ${iconClass} fs-5 ${textClass}"></i>
-          <span style="font-size: 0.95rem; font-weight: 500;">${message}</span>
+    let html = `
+      <div class="d-flex align-items-center justify-content-between w-100">
+        <div class="d-flex align-items-center gap-3">
+            <i class="bi ${iconClass} fs-5 ${textClass}"></i>
+            <span style="font-size: 0.95rem; font-weight: 500; text-align: left;">${message}</span>
+        </div>
+        <button type="button" class="btn-close btn-close-white ms-3 small" aria-label="Close" style="font-size: 0.75rem;" onclick="this.closest('.alert-toast').remove()"></button>
       </div>
-      <button type="button" class="btn-close btn-close-white ms-3 small" aria-label="Close" style="font-size: 0.75rem;" onclick="this.parentElement.remove()"></button>
     `;
+
+    if (hasButtons) {
+      html += `
+        <div class="alert-toast-actions w-100">
+      `;
+      buttons.forEach((btn, index) => {
+        html += `<button type="button" class="btn ${btn.class || 'btn-glass-primary'} py-1 px-3 rounded-pill text-white btn-sm" id="toast-btn-${index}" style="font-size: 0.78rem;">${btn.text}</button>`;
+      });
+      html += `</div>`;
+    }
     
+    toast.innerHTML = html;
     container.appendChild(toast);
+
+    if (hasButtons) {
+      buttons.forEach((btn, index) => {
+        const btnEl = toast.querySelector(`#toast-btn-${index}`);
+        if (btnEl) {
+          btnEl.onclick = () => {
+            if (btn.onClick) {
+              btn.onClick(toast);
+            } else {
+              toast.remove();
+            }
+          };
+        }
+      });
+    }
     
-    // Auto-remove after 4 seconds
-    setTimeout(() => {
-      if (toast.parentNode) {
-        toast.style.animation = 'toastFadeOut 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
-        setTimeout(() => toast.remove(), 400);
-      }
-    }, 4000);
+    // Auto-remove after 4 seconds ONLY if there are no buttons
+    if (!hasButtons) {
+      setTimeout(() => {
+        if (toast.parentNode) {
+          toast.style.animation = 'toastFadeOut 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
+          setTimeout(() => toast.remove(), 400);
+        }
+      }, 4000);
+    }
   };
 }

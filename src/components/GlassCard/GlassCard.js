@@ -1,23 +1,9 @@
-import styles from './GlassCard.css?inline';
-
 export class GlassCard extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
-  }
-
   connectedCallback() {
-    this.render();
-  }
-
-  render() {
-    this.shadowRoot.innerHTML = `
-      <style>${styles}</style>
-      <div class="glass-card">
-        <slot></slot>
-      </div>
-    `;
+    this.classList.add('glass-card', 'p-4', 'd-block');
   }
 }
 
-customElements.define('gk-glass-card', GlassCard);
+if (typeof customElements !== 'undefined' && !customElements.get('gk-glass-card')) {
+  customElements.define('gk-glass-card', GlassCard);
+}

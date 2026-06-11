@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GlassKit - Native Testing Environment</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffffff'><path d='M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5l2.404.961L10.404 2zm3.564 1.426L5.596 5 8 5.961 14.154 3.5zm3.25 1.7-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464z'/></svg>">
 
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -74,11 +75,10 @@
         <!-- Main Workspace Area -->
         <!-- Main Content Area -->
         <main class="main-content flex-grow-1 w-100">
-            <!-- Top Navbar for Toggle Sidebar -->
             <gk-navbar id="main-navbar" title="GlassKit Workspace">
-                <div class="badge badge-glass bg-primary bg-opacity-25 text-primary border-primary border-opacity-50 me-3">
+                <div slot="actions" class="badge badge-glass bg-primary bg-opacity-25 text-primary border-primary border-opacity-50 me-3 d-none d-lg-block">
                     v1.0.0</div>
-                <div class="rounded-circle border border-primary border-opacity-50 bg-primary bg-opacity-25 text-primary d-flex justify-content-center align-items-center"
+                <div slot="actions" class="rounded-circle border border-primary border-opacity-50 bg-primary bg-opacity-25 text-primary d-none d-lg-flex justify-content-center align-items-center"
                     style="width: 40px; height: 40px; font-weight: bold; font-family: monospace;">&lt;/&gt;</div>
             </gk-navbar>
 
@@ -245,18 +245,18 @@ body {
                                 <div class="glass-card p-4">
                                     <div class="alert alert-primary"
                                         role="alert">
-                                        Una alerta simple con color <strong class="fw-bold">Primario</strong>. El color
-                                        cambiará según el tema seleccionado.
+                                        <i class="bi bi-info-circle-fill fs-5"></i>
+                                        <div>Una alerta simple con color <strong class="fw-bold">Primario</strong>. El color cambiará según el tema seleccionado.</div>
                                     </div>
                                     <div class="alert alert-success"
                                         role="alert">
-                                        Una alerta simple con color <strong class="fw-bold">Success</strong>. Excelente
-                                        para notificaciones positivas.
+                                        <i class="bi bi-check-circle-fill fs-5"></i>
+                                        <div>Una alerta simple con color <strong class="fw-bold">Success</strong>. Excelente para notificaciones positivas.</div>
                                     </div>
                                     <div class="alert alert-danger mb-0"
                                         role="alert">
-                                        Una alerta simple con color <strong class="fw-bold">Danger</strong>. Ideal para
-                                        mensajes de error.
+                                        <i class="bi bi-exclamation-triangle-fill fs-5"></i>
+                                        <div>Una alerta simple con color <strong class="fw-bold">Danger</strong>. Ideal para mensajes de error.</div>
                                     </div>
 
                                     <div class="mt-4 pt-3 border-top border-light border-opacity-10">
@@ -561,9 +561,9 @@ sequenceDiagram
                 </div>
 
                 <div id="page-login" class="page-view d-none">
-                    <section id="login-section" class="content-section position-relative overflow-hidden" style="min-height: calc(100vh - 100px); padding: 0;">
+                    <section id="login-section" class="content-section position-relative overflow-hidden" style="padding: 0;">
                         <!-- Floating Credentials Widget (Zorin OS Desktop widget style) -->
-                        <div class="position-absolute top-0 start-0 m-4 p-3 glass-card" style="max-width: 280px; z-index: 10;">
+                        <div class="zorin-credentials-widget p-3 glass-card">
                             <h6 class="fw-bold mb-2 text-white"><i class="bi bi-info-circle text-primary me-2"></i>Demo Credentials</h6>
                             <p class="small text-white text-opacity-70 mb-2">Use these credentials to test the login experience:</p>
                             <div class="mb-1"><span class="small text-white text-opacity-50">Username:</span> <code class="text-primary">admin</code></div>
@@ -589,17 +589,26 @@ sequenceDiagram
 
                                 <!-- Username Selection / Input Step -->
                                 <div id="loginStepUsername" class="w-100 text-center">
-                                    <h5 class="fw-semibold text-white mb-3" style="font-size: 1.25rem;">Enter Username</h5>
-                                    <div class="px-4">
-                                        <input type="text" id="zorinUsername" class="zorin-input text-center mb-3" placeholder="Username" autocomplete="username">
-                                        <button class="btn btn-glass-primary px-4 py-2 rounded-pill w-100" onclick="goToPasswordStep()">Next</button>
-                                    </div>
+                                    <form onsubmit="event.preventDefault(); goToPasswordStep();" class="zorin-input-wrapper mt-3 px-4">
+                                        <!-- Left spacer to balance centering -->
+                                        <div class="zorin-spacer"></div>
+                                        
+                                        <!-- Username Input -->
+                                        <div class="zorin-input-container">
+                                            <input type="text" id="zorinUsername" class="zorin-input text-center" placeholder="Username" autocomplete="username" required>
+                                        </div>
+                                        
+                                        <!-- Forward button -->
+                                        <button type="submit" class="zorin-forward-btn" aria-label="Next Step">
+                                            <i class="bi bi-arrow-right-short fs-4"></i>
+                                        </button>
+                                    </form>
                                 </div>
 
                                 <!-- Password Entry Step (Zorin Style) -->
                                 <div id="loginStepPassword" class="w-100 text-center d-none">
                                     <div class="zorin-username text-white" id="displayUsername">LinuxTechi</div>
-                                    <form onsubmit="event.preventDefault(); submitZorinLogin();" class="zorin-input-wrapper mt-3">
+                                    <form onsubmit="event.preventDefault(); submitZorinLogin();" class="zorin-input-wrapper mt-3 px-4">
                                         <!-- Back arrow button -->
                                         <button type="button" class="zorin-back-btn" onclick="goToUsernameStep()" aria-label="Go Back">
                                             <i class="bi bi-arrow-left-short fs-4"></i>
@@ -613,7 +622,10 @@ sequenceDiagram
                                             </span>
                                         </div>
                                         
-                                        <button type="submit" class="d-none">Submit</button>
+                                        <!-- Forward / Submit button -->
+                                        <button type="submit" class="zorin-forward-btn" aria-label="Login">
+                                            <i class="bi bi-arrow-right-short fs-4"></i>
+                                        </button>
                                     </form>
                                 </div>
                             </div>
@@ -621,7 +633,7 @@ sequenceDiagram
                             <!-- Bottom Bar (ZORIN logo and settings) -->
                             <div class="zorin-bottom-bar w-100 d-flex justify-content-center align-items-center position-relative pb-4">
                                 <div class="zorin-logo">GLASSKIT</div>
-                                <i class="bi bi-gear zorin-settings-btn" onclick="alert('Accessibility & System Settings')"></i>
+                                <i class="bi bi-gear zorin-settings-btn" onclick="showGlassAlert('Ajustes de accesibilidad y del sistema de Zorin OS.', 'info', [{ text: 'Aceptar', class: 'btn-glass-info', onClick: (t) => t.remove() }, { text: 'Cancelar', class: 'btn-glass-secondary', onClick: (t) => t.remove() }])"></i>
                             </div>
                         </div>
                     </section>
