@@ -1,0 +1,34 @@
+.glass-nav {
+  background: var(--layoutSurface, rgba(255, 255, 255, 0.05));
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid var(--layoutBorder, rgba(255, 255, 255, 0.1));
+  border-radius: var(--borderRadiusBase, 16px);
+  margin-bottom: 30px;
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--textColor, #fff);
+  font-family: var(--fontFamily, 'Poppins', sans-serif);
+}
+
+.nav-title {
+  margin: 0;
+  font-weight: 600;
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+::slotted(*) {
+  display: flex;
+  align-items: center;
+}

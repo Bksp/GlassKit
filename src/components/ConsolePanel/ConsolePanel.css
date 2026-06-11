@@ -1,0 +1,33 @@
+.console-panel {
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid var(--borderColor, rgba(255, 255, 255, 0.08));
+  border-radius: var(--borderRadiusSmall, 12px);
+  font-family: var(--fontCode, 'Fira Code', monospace);
+  font-size: 0.9rem;
+  height: 250px;
+  overflow-y: auto;
+  padding: 15px;
+  box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.5);
+  color: #fff;
+  margin: 0;
+}
+
+.console-line {
+  margin-bottom: 6px;
+  line-height: 1.4;
+  border-left: 3px solid transparent;
+  padding-left: 8px;
+  word-break: break-all;
+}
+
+.console-line.info { border-left-color: #0d6efd; color: #9ec5fe; }
+.console-line.success { border-left-color: #198754; color: #a3cfbb; }
+.console-line.warning { border-left-color: #ffc107; color: #ffe69c; }
+.console-line.danger { border-left-color: #dc3545; color: #f8d7da; }
+.console-line.system { border-left-color: #6c757d; color: #ced4da; }
+
+/* Custom scrollbar para la consola */
+.console-panel::-webkit-scrollbar { width: 6px; height: 6px; }
+.console-panel::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); }
+.console-panel::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 3px; }
+.console-panel::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.4); }
