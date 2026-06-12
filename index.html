@@ -16,8 +16,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
     <!-- Custom Style Sheet (fusión directa de tus hojas de estilo) -->
-  <script type="module" crossorigin src="./assets/index-ANEVTNOz.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-CjQdLYGj.css">
+  <script type="module" crossorigin src="./assets/index-BZAox3X2.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-DQnLOuGW.css">
 </head>
 
 <body>
@@ -76,11 +76,10 @@
         <!-- Main Workspace Area -->
         <!-- Main Content Area -->
         <main class="main-content flex-grow-1 w-100">
-            <!-- Top Navbar for Toggle Sidebar -->
             <gk-navbar id="main-navbar" title="GlassKit Workspace">
-                <div class="badge badge-glass bg-primary bg-opacity-25 text-primary border-primary border-opacity-50 me-3">
+                <div slot="actions" class="badge badge-glass bg-primary bg-opacity-25 text-primary border-primary border-opacity-50 me-3 d-none d-lg-block">
                     v1.0.0</div>
-                <div class="rounded-circle border border-primary border-opacity-50 bg-primary bg-opacity-25 text-primary d-flex justify-content-center align-items-center"
+                <div slot="actions" class="rounded-circle border border-primary border-opacity-50 bg-primary bg-opacity-25 text-primary d-none d-lg-flex justify-content-center align-items-center"
                     style="width: 40px; height: 40px; font-weight: bold; font-family: monospace;">&lt;/&gt;</div>
             </gk-navbar>
 
@@ -563,7 +562,7 @@ sequenceDiagram
                 </div>
 
                 <div id="page-login" class="page-view d-none">
-                    <section id="login-section" class="content-section position-relative overflow-hidden" style="min-height: calc(100vh - 100px); padding: 0;">
+                    <section id="login-section" class="content-section position-relative overflow-hidden" style="padding: 0;">
                         <!-- Floating Credentials Widget (Zorin OS Desktop widget style) -->
                         <div class="zorin-credentials-widget p-3 glass-card">
                             <h6 class="fw-bold mb-2 text-white"><i class="bi bi-info-circle text-primary me-2"></i>Demo Credentials</h6>
@@ -571,11 +570,6 @@ sequenceDiagram
                             <div class="mb-1"><span class="small text-white text-opacity-50">Username:</span> <code class="text-primary">admin</code></div>
                             <div><span class="small text-white text-opacity-50">Password:</span> <code class="text-primary">admin123</code></div>
                         </div>
-
-                        <!-- Floating Sidebar Menu Button for Mobile Showcase (Exception) -->
-                        <button class="nav-toggle-btn toggle-sidebar-btn position-absolute top-0 end-0 m-3 d-lg-none btn-glass-secondary rounded-circle d-flex align-items-center justify-content-center" style="width: 38px; height: 38px; z-index: 1000; padding: 0; border: 1px solid rgba(255, 255, 255, 0.15);" aria-label="Toggle Sidebar">
-                            <i class="bi bi-list fs-4 text-white"></i>
-                        </button>
 
                         <!-- Zorin OS Login Shell -->
                         <div class="zorin-login-container">
@@ -594,19 +588,30 @@ sequenceDiagram
                                     <img id="zorinAvatarImg" src="./assets/user-avatar-CTH0V3AH.png" alt="User Avatar" class="no-zoom d-none">
                                 </div>
 
+                                <!-- Greeting Text (Persistent and animated) -->
+                                <div id="zorinGreeting" class="zorin-username text-white text-center m-0">Hi?</div>
+
                                 <!-- Username Selection / Input Step -->
                                 <div id="loginStepUsername" class="w-100 text-center">
-                                    <h5 class="fw-semibold text-white mb-3" style="font-size: 1.25rem;">Enter Username</h5>
-                                    <div class="px-4">
-                                        <input type="text" id="zorinUsername" class="zorin-input text-center mb-3" placeholder="Username" autocomplete="username">
-                                        <button class="btn btn-glass-primary px-4 py-2 rounded-pill w-100" onclick="goToPasswordStep()">Next</button>
-                                    </div>
+                                    <form onsubmit="event.preventDefault(); goToPasswordStep();" class="zorin-input-wrapper mt-1 px-4">
+                                        <!-- Left spacer to balance centering -->
+                                        <div class="zorin-spacer"></div>
+                                        
+                                        <!-- Username Input -->
+                                        <div class="zorin-input-container">
+                                            <input type="text" id="zorinUsername" class="zorin-input text-center" placeholder="Username" autocomplete="username" required>
+                                        </div>
+                                        
+                                        <!-- Forward button -->
+                                        <button type="submit" class="zorin-forward-btn" aria-label="Next Step">
+                                            <i class="bi bi-arrow-right-short fs-4"></i>
+                                        </button>
+                                    </form>
                                 </div>
 
                                 <!-- Password Entry Step (Zorin Style) -->
                                 <div id="loginStepPassword" class="w-100 text-center d-none">
-                                    <div class="zorin-username text-white" id="displayUsername">LinuxTechi</div>
-                                    <form onsubmit="event.preventDefault(); submitZorinLogin();" class="zorin-input-wrapper mt-3">
+                                    <form onsubmit="event.preventDefault(); submitZorinLogin();" class="zorin-input-wrapper mt-1 px-4">
                                         <!-- Back arrow button -->
                                         <button type="button" class="zorin-back-btn" onclick="goToUsernameStep()" aria-label="Go Back">
                                             <i class="bi bi-arrow-left-short fs-4"></i>
@@ -620,7 +625,10 @@ sequenceDiagram
                                             </span>
                                         </div>
                                         
-                                        <button type="submit" class="d-none">Submit</button>
+                                        <!-- Forward / Submit button -->
+                                        <button type="submit" class="zorin-forward-btn" aria-label="Login">
+                                            <i class="bi bi-arrow-right-short fs-4"></i>
+                                        </button>
                                     </form>
                                 </div>
                             </div>
@@ -736,6 +744,18 @@ sequenceDiagram
         setInterval(updateZorinClock, 1000);
         updateZorinClock();
 
+        // Zorin OS Greeting Text Management with Animation
+        function updateZorinGreeting(newText) {
+            const greetingEl = document.getElementById('zorinGreeting');
+            if (greetingEl) {
+                greetingEl.classList.add('greeting-hidden');
+                setTimeout(() => {
+                    greetingEl.textContent = newText;
+                    greetingEl.classList.remove('greeting-hidden');
+                }, 200);
+            }
+        }
+
         // Zorin OS Login Form Step Management
         window.goToPasswordStep = function() {
             const usernameInput = document.getElementById('zorinUsername');
@@ -745,7 +765,7 @@ sequenceDiagram
                 return;
             }
             
-            document.getElementById('displayUsername').textContent = username;
+            updateZorinGreeting(`Hi ${username}!`);
             
             const stepUser = document.getElementById('loginStepUsername');
             const stepPass = document.getElementById('loginStepPassword');
@@ -760,6 +780,8 @@ sequenceDiagram
         }
 
         window.goToUsernameStep = function() {
+            updateZorinGreeting('Hi?');
+            
             const stepUser = document.getElementById('loginStepUsername');
             const stepPass = document.getElementById('loginStepPassword');
             
@@ -793,15 +815,19 @@ sequenceDiagram
             const centerForm = document.querySelector('.zorin-center-login');
             
             if (user === 'admin' && pass === 'admin123') {
-                centerForm.style.transition = 'transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s ease';
-                centerForm.style.transform = 'scale(0.95)';
-                centerForm.style.opacity = '0.5';
+                // Hide inputs to make only the avatar and "Welcome" text visible
+                const stepPass = document.getElementById('loginStepPassword');
+                if (stepPass) {
+                    stepPass.classList.add('d-none');
+                }
                 
+                // Animate greeting to "Welcome"
+                updateZorinGreeting('Welcome');
+                
+                // Keep the glass alert notification
                 showGlassAlert('Welcome to GlassKit OS! Access granted.', 'success');
                 
                 setTimeout(() => {
-                    centerForm.style.transform = 'scale(1)';
-                    centerForm.style.opacity = '1';
                     document.getElementById('zorinUsername').value = '';
                     document.getElementById('zorinUsername').dispatchEvent(new Event('input'));
                     document.getElementById('zorinPassword').value = '';
