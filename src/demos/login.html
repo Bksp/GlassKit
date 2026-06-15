@@ -1,0 +1,78 @@
+<section id="login-section" class="content-section position-relative overflow-hidden" style="padding: 0;">
+                        <!-- Floating Credentials Widget (Zorin OS Desktop widget style) -->
+                        <div class="zorin-credentials-widget p-3 glass-card">
+                            <h6 class="fw-bold mb-2 text-white"><i class="bi bi-info-circle text-primary me-2"></i>Demo Credentials</h6>
+                            <p class="small text-white text-opacity-70 mb-2">Use these credentials to test the login experience:</p>
+                            <div class="mb-1"><span class="small text-white text-opacity-50">Username:</span> <code class="text-primary">admin</code></div>
+                            <div><span class="small text-white text-opacity-50">Password:</span> <code class="text-primary">admin123</code></div>
+                        </div>
+
+                        <!-- Zorin OS Login Shell -->
+                        <div class="zorin-login-container">
+                            <!-- Top Bar (Centered Clock) -->
+                            <div class="zorin-top-bar d-flex justify-content-center w-100 pt-3">
+                                <div id="zorinClock" class="fw-medium text-white text-opacity-80">24 Dec 07:07</div>
+                            </div>
+
+                            <!-- Center Login Form -->
+                            <div class="zorin-center-login">
+                                <!-- Avatar -->
+                                <div class="zorin-avatar shadow-lg">
+                                    <!-- Generic theme-aware icon -->
+                                    <i id="zorinAvatarIcon" class="bi bi-person text-white text-opacity-40"></i>
+                                    <!-- Custom profile image -->
+                                    <img id="zorinAvatarImg" src="./src/user-avatar.png" alt="User Avatar" class="no-zoom d-none">
+                                </div>
+
+                                <!-- Greeting Text (Persistent and animated) -->
+                                <div id="zorinGreeting" class="zorin-username text-white text-center m-0">Hi?</div>
+
+                                <!-- Username Selection / Input Step -->
+                                <div id="loginStepUsername" class="w-100 text-center">
+                                    <form onsubmit="event.preventDefault(); goToPasswordStep();" class="zorin-input-wrapper mt-1 px-4">
+                                        <!-- Left spacer to balance centering -->
+                                        <div class="zorin-spacer"></div>
+                                        
+                                        <!-- Username Input -->
+                                        <div class="zorin-input-container">
+                                            <input type="text" id="zorinUsername" class="zorin-input text-center" placeholder="Username" autocomplete="username" required>
+                                        </div>
+                                        
+                                        <!-- Forward button -->
+                                        <button type="submit" class="zorin-forward-btn" aria-label="Next Step">
+                                            <i class="bi bi-arrow-right-short fs-4"></i>
+                                        </button>
+                                    </form>
+                                </div>
+
+                                <!-- Password Entry Step (Zorin Style) -->
+                                <div id="loginStepPassword" class="w-100 text-center d-none">
+                                    <form onsubmit="event.preventDefault(); submitZorinLogin();" class="zorin-input-wrapper mt-1 px-4">
+                                        <!-- Back arrow button -->
+                                        <button type="button" class="zorin-back-btn" onclick="goToUsernameStep()" aria-label="Go Back">
+                                            <i class="bi bi-arrow-left-short fs-4"></i>
+                                        </button>
+                                        
+                                        <!-- Password input with reveal icon inside -->
+                                        <div class="zorin-input-container">
+                                            <input type="password" id="zorinPassword" class="zorin-input" placeholder="Password" autocomplete="current-password" required>
+                                            <span class="zorin-toggle-password" onclick="toggleZorinPasswordVisibility()">
+                                                <i id="passwordEyeIcon" class="bi bi-eye"></i>
+                                            </span>
+                                        </div>
+                                        
+                                        <!-- Forward / Submit button -->
+                                        <button type="submit" class="zorin-forward-btn" aria-label="Login">
+                                            <i class="bi bi-arrow-right-short fs-4"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <!-- Bottom Bar (ZORIN logo and settings) -->
+                            <div class="zorin-bottom-bar w-100 d-flex justify-content-center align-items-center position-relative pb-4">
+                                <div class="zorin-logo">GLASSKIT</div>
+                                <i class="bi bi-gear zorin-settings-btn" onclick="showGlassAlert('Ajustes de accesibilidad y del sistema de Zorin OS.', 'info', [{ text: 'Aceptar', class: 'btn-glass-info', onClick: (t) => t.remove() }, { text: 'Cancelar', class: 'btn-glass-secondary', onClick: (t) => t.remove() }])"></i>
+                            </div>
+                        </div>
+                    </section>

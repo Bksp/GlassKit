@@ -1,0 +1,103 @@
+<section id="store-section" class="content-section pt-4">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h2 class="fw-bold text-white mb-0"><i class="bi bi-shop text-primary me-2"></i>Glass Store</h2>
+                            <div class="badge badge-glass bg-primary bg-opacity-25 text-primary border-primary p-2 fs-6 rounded-pill">
+                                <i class="bi bi-cart3"></i> <span class="ms-1 fw-bold">3 items</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Search and Filter -->
+                        <div class="glass-card p-3 mb-4 d-flex gap-3 flex-wrap align-items-center position-relative" style="z-index: 1050;">
+                            <div class="flex-grow-1">
+                                <div class="input-group">
+                                    <span class="input-group-text bg-transparent border-light border-opacity-25 text-white"><i class="bi bi-search"></i></span>
+                                    <input type="text" class="form-control bg-transparent border-light border-opacity-25 text-white" placeholder="Buscar productos...">
+                                </div>
+                            </div>
+                            <select class="form-select w-auto bg-transparent border-light border-opacity-25 text-white">
+                                <option class="text-dark">Categorías</option>
+                                <option class="text-dark">Hardware</option>
+                                <option class="text-dark">Software</option>
+                                <option class="text-dark">Accesorios</option>
+                            </select>
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-glass-secondary active" onclick="setStoreView('grid-lg', this)" title="Tarjetas Grandes"><i class="bi bi-grid-fill"></i></button>
+                                <button type="button" class="btn btn-glass-secondary" onclick="setStoreView('grid-sm', this)" title="Tarjetas Pequeñas"><i class="bi bi-grid-3x3-gap-fill"></i></button>
+                                <button type="button" class="btn btn-glass-secondary" onclick="setStoreView('list', this)" title="Lista"><i class="bi bi-list-ul"></i></button>
+                            </div>
+                        </div>
+
+                        <!-- Products Grid -->
+                        <div class="row g-4" id="store-products-grid">
+                            <!-- Product 1 -->
+                            <div class="col-sm-6 col-md-4 col-xl-3">
+                                <article class="glass-card h-100 d-flex flex-column overflow-hidden position-relative p-0 border-0">
+                                    <div class="bg-dark bg-opacity-25 d-flex justify-content-center align-items-center p-4 border-bottom border-light border-opacity-10" style="height: 180px;">
+                                        <i class="bi bi-laptop text-primary text-opacity-75" style="font-size: 4rem;"></i>
+                                    </div>
+                                    <div class="p-3 d-flex flex-column flex-grow-1">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h5 class="text-white fw-bold m-0">GlassBook Pro</h5>
+                                            <span class="badge badge-glass bg-success bg-opacity-25 text-success border-success fw-bold">$1,299</span>
+                                        </div>
+                                        <p class="text-white text-opacity-50 small flex-grow-1 mb-3">Portátil de alto rendimiento con acabado translúcido y refrigeración líquida integrada.</p>
+                                        <button class="btn btn-glass-primary w-100"><i class="bi bi-cart-plus me-2"></i> Añadir al carrito</button>
+                                    </div>
+                                </article>
+                            </div>
+                            
+                            <!-- Product 2 -->
+                            <div class="col-sm-6 col-md-4 col-xl-3">
+                                <article class="glass-card h-100 d-flex flex-column overflow-hidden position-relative p-0 border border-primary border-opacity-50 shadow-lg">
+                                    <div class="position-absolute top-0 end-0 m-2 z-1">
+                                        <span class="badge bg-primary rounded-pill">Destacado</span>
+                                    </div>
+                                    <div class="bg-dark bg-opacity-25 d-flex justify-content-center align-items-center p-4 border-bottom border-light border-opacity-10" style="height: 180px;">
+                                        <i class="bi bi-phone text-info text-opacity-75" style="font-size: 4rem;"></i>
+                                    </div>
+                                    <div class="p-3 d-flex flex-column flex-grow-1">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h5 class="text-white fw-bold m-0">GlassPhone X</h5>
+                                            <span class="badge badge-glass bg-success bg-opacity-25 text-success border-success fw-bold">$899</span>
+                                        </div>
+                                        <p class="text-white text-opacity-50 small flex-grow-1 mb-3">Smartphone con chasis de cristal ultra resistente y cámara holográfica de nueva generación.</p>
+                                        <button class="btn btn-glass-primary w-100"><i class="bi bi-cart-plus me-2"></i> Añadir al carrito</button>
+                                    </div>
+                                </article>
+                            </div>
+
+                            <!-- Product 3 -->
+                            <div class="col-sm-6 col-md-4 col-xl-3">
+                                <article class="glass-card h-100 d-flex flex-column overflow-hidden position-relative p-0 border-0">
+                                    <div class="bg-dark bg-opacity-25 d-flex justify-content-center align-items-center p-4 border-bottom border-light border-opacity-10" style="height: 180px;">
+                                        <i class="bi bi-smartwatch text-warning text-opacity-75" style="font-size: 4rem;"></i>
+                                    </div>
+                                    <div class="p-3 d-flex flex-column flex-grow-1">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h5 class="text-white fw-bold m-0">GlassWatch</h5>
+                                            <span class="badge badge-glass bg-success bg-opacity-25 text-success border-success fw-bold">$249</span>
+                                        </div>
+                                        <p class="text-white text-opacity-50 small flex-grow-1 mb-3">Reloj inteligente que se sincroniza perfectamente con tu ecosistema mediante GlassKit.</p>
+                                        <button class="btn btn-glass-secondary w-100"><i class="bi bi-cart-plus me-2"></i> Añadir al carrito</button>
+                                    </div>
+                                </article>
+                            </div>
+
+                            <!-- Product 4 -->
+                            <div class="col-sm-6 col-md-4 col-xl-3">
+                                <article class="glass-card h-100 d-flex flex-column overflow-hidden position-relative p-0 border-0">
+                                    <div class="bg-dark bg-opacity-25 d-flex justify-content-center align-items-center p-4 border-bottom border-light border-opacity-10" style="height: 180px;">
+                                        <i class="bi bi-headphones text-danger text-opacity-75" style="font-size: 4rem;"></i>
+                                    </div>
+                                    <div class="p-3 d-flex flex-column flex-grow-1">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h5 class="text-white fw-bold m-0">GlassAudio</h5>
+                                            <span class="badge badge-glass bg-success bg-opacity-25 text-success border-success fw-bold">$199</span>
+                                        </div>
+                                        <p class="text-white text-opacity-50 small flex-grow-1 mb-3">Auriculares premium con cancelación activa de ruido y diseño acústico transparente.</p>
+                                        <button class="btn btn-glass-secondary w-100"><i class="bi bi-cart-plus me-2"></i> Añadir al carrito</button>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+                    </section>

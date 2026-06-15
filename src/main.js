@@ -412,6 +412,19 @@ export function initGlassKitUI() {
           const targetPage = document.getElementById(targetPageId);
           if (targetPage) {
               targetPage.classList.remove('d-none');
+              
+              // Lazy loading modules if not loaded
+              if (!targetPage.hasAttribute('data-loaded')) {
+                  if (targetPageId === 'page-login') {
+                      targetPage.setAttribute('data-loaded', 'true');
+                      targetPage.innerHTML = '<div class="p-5 text-center text-white"><div class="spinner-border text-primary" role="status"></div><div class="mt-2">Cargando módulo...</div></div>';
+                      import('./demos/login.js').then(module => module.init(targetPage)).catch(console.error);
+                  } else if (targetPageId === 'page-store') {
+                      targetPage.setAttribute('data-loaded', 'true');
+                      targetPage.innerHTML = '<div class="p-5 text-center text-white"><div class="spinner-border text-primary" role="status"></div><div class="mt-2">Cargando módulo...</div></div>';
+                      import('./demos/store.js').then(module => module.init(targetPage)).catch(console.error);
+                  }
+              }
           }
           
           // Ocultar / Mostrar el navbar superior de GlassKit Workspace (ajustado para móvil)
