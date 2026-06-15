@@ -2,7 +2,7 @@
 
 GlassKit is a premium, modern UI component library focused on creating stunning glassmorphism aesthetics. Built with pure HTML/CSS/JS (Web Components) and bundled with Vite, it provides a seamless and lightweight solution for crafting dynamic, responsive web interfaces.
 
-## 🌟 Features
+## Features
 
 - **Glassmorphism Design:** Beautiful, translucent UI components that feel premium and modern.
 - **Web Components:** Native browser support without tying you to a specific framework.
@@ -10,7 +10,7 @@ GlassKit is a premium, modern UI component library focused on creating stunning 
 - **Customizable:** Easily adaptable to different brand identities and color schemes.
 - **Zero Config:** Ready to use out of the box.
 
-## 📦 Installation
+## Installation
 
 To use the GlassKit components in your project:
 
@@ -18,7 +18,7 @@ To use the GlassKit components in your project:
 npm install
 ```
 
-## 🚀 Usage
+## Usage
 
 ### Development Server
 
@@ -46,13 +46,13 @@ To locally preview the production build:
 npm run preview
 ```
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - [Vite](https://vitejs.dev/) - Next Generation Frontend Tooling
 - Vanilla JavaScript (Web Components)
 - Native CSS (CSS Variables, Flexbox, Grid)
 - Mermaid (for diagram generation support)
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License.

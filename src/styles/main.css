@@ -140,6 +140,8 @@ body.sidebar-collapsed:not(.sidebar-mobile-open) #sidebarToggleBtn:hover .line2 
     color: white;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.25);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transform: translateZ(0);
+    will-change: transform;
 }
 
 .glass-card:hover {
@@ -156,6 +158,8 @@ body.sidebar-collapsed:not(.sidebar-mobile-open) #sidebarToggleBtn:hover .line2 
     position: relative; /* Normal document flow in desktop */
     z-index: 1030;
     transition: background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    transform: translateZ(0);
+    will-change: transform;
 }
 
 .gk-navbar-title {
@@ -782,10 +786,11 @@ body.sidebar-mobile-open .glass-nav {
     filter: blur(140px);
     pointer-events: none;
     z-index: -1;
-    transform: translate(-50%, -50%);
-    top: 50%;
-    left: 50%;
-    transition: left 3s cubic-bezier(0.22, 1, 0.36, 1), top 3s cubic-bezier(0.22, 1, 0.36, 1);
+    transform: translate(50vw, 50vh) translate(-50%, -50%);
+    top: 0;
+    left: 0;
+    will-change: transform;
+    transition: transform 3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 
