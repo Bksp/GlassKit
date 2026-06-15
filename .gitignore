@@ -24,3 +24,5 @@ dist-demo/
 *.njsproj
 *.sln
 *.sw?
+lighthouse-report.json
+lighthouse-report-after.json

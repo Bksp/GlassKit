@@ -1,6 +1,5 @@
 import './styles/main.css';
 import { ThemeManager } from './utils/theme-manager.js';
-import mermaid from 'mermaid';
 
 // Import modular Web Components
 import './components/GlassCard/GlassCard.js';
@@ -350,6 +349,9 @@ export function initGlassKitUI() {
   const originalMermaidCodes = Array.from(mermaidNodes).map(node => node.textContent.trim());
 
   const renderMermaid = async (primaryColor) => {
+      if (mermaidNodes.length === 0) return;
+      const { default: mermaid } = await import('mermaid');
+      
       mermaid.initialize({
           startOnLoad: false,
           theme: 'base',
