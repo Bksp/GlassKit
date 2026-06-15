@@ -15,9 +15,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/vs2015.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
-    <!-- Custom Style Sheet (fusión directa de tus hojas de estilo) -->
-  <script type="module" crossorigin src="./assets/index-BZAox3X2.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-DQnLOuGW.css">
+    <!-- Custom Style Sheet (fusión directa de tus hojas de estilo) -->
+  <script type="module" crossorigin src="./assets/index-ByeikfD8.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-BU18ZLhO.css">
 </head>
 
 <body>
@@ -61,6 +61,8 @@
                     <div class="my-3 border-top border-light border-opacity-25"></div>
                     <a href="#login-section" class="nav-link" data-page="page-login"> <i
                             class="bi bi-shield-lock me-3"></i> <span>Demo Login</span> </a>
+                    <a href="#store-section" class="nav-link" data-page="page-store"> <i
+                            class="bi bi-shop me-3"></i> <span>Demo Store</span> </a>
                 </div>
             </div>
 
@@ -641,13 +643,119 @@ sequenceDiagram
                         </div>
                     </section>
                 </div>
+
+                <div id="page-store" class="page-view d-none">
+                    <section id="store-section" class="content-section pt-4">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h2 class="fw-bold text-white mb-0"><i class="bi bi-shop text-primary me-2"></i>Glass Store</h2>
+                            <div class="badge badge-glass bg-primary bg-opacity-25 text-primary border-primary p-2 fs-6 rounded-pill">
+                                <i class="bi bi-cart3"></i> <span class="ms-1 fw-bold">3 items</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Search and Filter -->
+                        <div class="glass-card p-3 mb-4 d-flex gap-3 flex-wrap align-items-center position-relative" style="z-index: 1050;">
+                            <div class="flex-grow-1">
+                                <div class="input-group">
+                                    <span class="input-group-text bg-transparent border-light border-opacity-25 text-white"><i class="bi bi-search"></i></span>
+                                    <input type="text" class="form-control bg-transparent border-light border-opacity-25 text-white" placeholder="Buscar productos...">
+                                </div>
+                            </div>
+                            <select class="form-select w-auto bg-transparent border-light border-opacity-25 text-white">
+                                <option class="text-dark">Categorías</option>
+                                <option class="text-dark">Hardware</option>
+                                <option class="text-dark">Software</option>
+                                <option class="text-dark">Accesorios</option>
+                            </select>
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-glass-secondary active" onclick="setStoreView('grid-lg', this)" title="Tarjetas Grandes"><i class="bi bi-grid-fill"></i></button>
+                                <button type="button" class="btn btn-glass-secondary" onclick="setStoreView('grid-sm', this)" title="Tarjetas Pequeñas"><i class="bi bi-grid-3x3-gap-fill"></i></button>
+                                <button type="button" class="btn btn-glass-secondary" onclick="setStoreView('list', this)" title="Lista"><i class="bi bi-list-ul"></i></button>
+                            </div>
+                        </div>
+
+                        <!-- Products Grid -->
+                        <div class="row g-4" id="store-products-grid">
+                            <!-- Product 1 -->
+                            <div class="col-sm-6 col-md-4 col-xl-3">
+                                <article class="glass-card h-100 d-flex flex-column overflow-hidden position-relative p-0 border-0">
+                                    <div class="bg-dark bg-opacity-25 d-flex justify-content-center align-items-center p-4 border-bottom border-light border-opacity-10" style="height: 180px;">
+                                        <i class="bi bi-laptop text-primary text-opacity-75" style="font-size: 4rem;"></i>
+                                    </div>
+                                    <div class="p-3 d-flex flex-column flex-grow-1">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h5 class="text-white fw-bold m-0">GlassBook Pro</h5>
+                                            <span class="badge badge-glass bg-success bg-opacity-25 text-success border-success fw-bold">$1,299</span>
+                                        </div>
+                                        <p class="text-white text-opacity-50 small flex-grow-1 mb-3">Portátil de alto rendimiento con acabado translúcido y refrigeración líquida integrada.</p>
+                                        <button class="btn btn-glass-primary w-100"><i class="bi bi-cart-plus me-2"></i> Añadir al carrito</button>
+                                    </div>
+                                </article>
+                            </div>
+                            
+                            <!-- Product 2 -->
+                            <div class="col-sm-6 col-md-4 col-xl-3">
+                                <article class="glass-card h-100 d-flex flex-column overflow-hidden position-relative p-0 border border-primary border-opacity-50 shadow-lg">
+                                    <div class="position-absolute top-0 end-0 m-2 z-1">
+                                        <span class="badge bg-primary rounded-pill">Destacado</span>
+                                    </div>
+                                    <div class="bg-dark bg-opacity-25 d-flex justify-content-center align-items-center p-4 border-bottom border-light border-opacity-10" style="height: 180px;">
+                                        <i class="bi bi-phone text-info text-opacity-75" style="font-size: 4rem;"></i>
+                                    </div>
+                                    <div class="p-3 d-flex flex-column flex-grow-1">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h5 class="text-white fw-bold m-0">GlassPhone X</h5>
+                                            <span class="badge badge-glass bg-success bg-opacity-25 text-success border-success fw-bold">$899</span>
+                                        </div>
+                                        <p class="text-white text-opacity-50 small flex-grow-1 mb-3">Smartphone con chasis de cristal ultra resistente y cámara holográfica de nueva generación.</p>
+                                        <button class="btn btn-glass-primary w-100"><i class="bi bi-cart-plus me-2"></i> Añadir al carrito</button>
+                                    </div>
+                                </article>
+                            </div>
+
+                            <!-- Product 3 -->
+                            <div class="col-sm-6 col-md-4 col-xl-3">
+                                <article class="glass-card h-100 d-flex flex-column overflow-hidden position-relative p-0 border-0">
+                                    <div class="bg-dark bg-opacity-25 d-flex justify-content-center align-items-center p-4 border-bottom border-light border-opacity-10" style="height: 180px;">
+                                        <i class="bi bi-smartwatch text-warning text-opacity-75" style="font-size: 4rem;"></i>
+                                    </div>
+                                    <div class="p-3 d-flex flex-column flex-grow-1">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h5 class="text-white fw-bold m-0">GlassWatch</h5>
+                                            <span class="badge badge-glass bg-success bg-opacity-25 text-success border-success fw-bold">$249</span>
+                                        </div>
+                                        <p class="text-white text-opacity-50 small flex-grow-1 mb-3">Reloj inteligente que se sincroniza perfectamente con tu ecosistema mediante GlassKit.</p>
+                                        <button class="btn btn-glass-secondary w-100"><i class="bi bi-cart-plus me-2"></i> Añadir al carrito</button>
+                                    </div>
+                                </article>
+                            </div>
+
+                            <!-- Product 4 -->
+                            <div class="col-sm-6 col-md-4 col-xl-3">
+                                <article class="glass-card h-100 d-flex flex-column overflow-hidden position-relative p-0 border-0">
+                                    <div class="bg-dark bg-opacity-25 d-flex justify-content-center align-items-center p-4 border-bottom border-light border-opacity-10" style="height: 180px;">
+                                        <i class="bi bi-headphones text-danger text-opacity-75" style="font-size: 4rem;"></i>
+                                    </div>
+                                    <div class="p-3 d-flex flex-column flex-grow-1">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h5 class="text-white fw-bold m-0">GlassAudio</h5>
+                                            <span class="badge badge-glass bg-success bg-opacity-25 text-success border-success fw-bold">$199</span>
+                                        </div>
+                                        <p class="text-white text-opacity-50 small flex-grow-1 mb-3">Auriculares premium con cancelación activa de ruido y diseño acústico transparente.</p>
+                                        <button class="btn btn-glass-secondary w-100"><i class="bi bi-cart-plus me-2"></i> Añadir al carrito</button>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+                    </section>
+                </div>
             </div>
 
         </main>
     </div>
 
     <!-- Bootstrap 5 Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Inicializar Highlight.js globalmente como en tu original
         document.addEventListener('DOMContentLoaded', (event) => {
@@ -656,13 +764,19 @@ sequenceDiagram
             });
         });
 
-        // Ambient Orb Effect como en tu original
+        // Ambient Orb Effect optimizado
+        let orbFrameId = null;
         document.addEventListener('mousemove', function (e) {
-            const orb = document.getElementById('ambient-orb');
-            if (orb) {
-                orb.style.left = e.clientX + 'px';
-                orb.style.top = e.clientY + 'px';
+            if (orbFrameId) {
+                cancelAnimationFrame(orbFrameId);
             }
+            orbFrameId = requestAnimationFrame(() => {
+                const orb = document.getElementById('ambient-orb');
+                if (orb) {
+                    // Animación optimizada mediante GPU (transform) en lugar de CPU (left/top)
+                    orb.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
+                }
+            });
         });
 
         // Dynamic Avatar Loader: Icon (generic) <-> Image (admin)
@@ -839,6 +953,74 @@ sequenceDiagram
                 setTimeout(() => {
                     centerForm.classList.remove('shake-animation');
                 }, 500);
+            }
+        }
+
+        window.setStoreView = function(mode, btn) {
+            // Update active button
+            const btnGroup = btn.closest('.btn-group');
+            if (btnGroup) {
+                btnGroup.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            }
+
+            const grid = document.getElementById('store-products-grid');
+            if (!grid) return;
+            
+            const cards = grid.querySelectorAll('.glass-card');
+            const cols = grid.querySelectorAll('[class*="col-"]');
+            
+            if (mode === 'grid-lg') {
+                cols.forEach(col => col.className = 'col-sm-6 col-md-4 col-xl-3');
+                cards.forEach(card => {
+                    card.classList.remove('flex-row');
+                    card.classList.add('flex-column');
+                    const imgDiv = card.querySelector('.bg-dark');
+                    if (imgDiv) {
+                        imgDiv.style.height = '180px';
+                        imgDiv.style.width = '100%';
+                        imgDiv.classList.remove('border-end');
+                        imgDiv.classList.add('border-bottom');
+                    }
+                    const bodyDiv = card.querySelector('.flex-column.flex-grow-1');
+                    if (bodyDiv) {
+                        bodyDiv.classList.remove('justify-content-center');
+                    }
+                });
+            } else if (mode === 'grid-sm') {
+                cols.forEach(col => col.className = 'col-6 col-sm-4 col-md-3 col-xl-2');
+                cards.forEach(card => {
+                    card.classList.remove('flex-row');
+                    card.classList.add('flex-column');
+                    const imgDiv = card.querySelector('.bg-dark');
+                    if (imgDiv) {
+                        imgDiv.style.height = '120px';
+                        imgDiv.style.width = '100%';
+                        imgDiv.classList.remove('border-end');
+                        imgDiv.classList.add('border-bottom');
+                    }
+                    const bodyDiv = card.querySelector('.flex-column.flex-grow-1');
+                    if (bodyDiv) {
+                        bodyDiv.classList.remove('justify-content-center');
+                    }
+                });
+            } else if (mode === 'list') {
+                cols.forEach(col => col.className = 'col-12');
+                cards.forEach(card => {
+                    card.classList.remove('flex-column');
+                    card.classList.add('flex-row');
+                    const imgDiv = card.querySelector('.bg-dark');
+                    if (imgDiv) {
+                        imgDiv.style.height = 'auto';
+                        imgDiv.style.width = '200px';
+                        imgDiv.classList.remove('border-bottom');
+                        imgDiv.classList.add('border-end');
+                    }
+                    const bodyDiv = card.querySelector('.flex-column.flex-grow-1');
+                    if (bodyDiv) {
+                        bodyDiv.classList.add('justify-content-center');
+                    }
+                });
             }
         }
     </script>
